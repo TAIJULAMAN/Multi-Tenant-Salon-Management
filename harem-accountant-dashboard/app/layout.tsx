@@ -28,8 +28,17 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
+      <head>
+        <title>Accountant Dashboard - Financial & Payroll Management</title>
+      </head>
       <body className="min-h-full bg-bg-main text-slate-800">
-        <DashboardLayout>{children}</DashboardLayout>
+        <a href="#main-content" className="sr-only focus:not-sr-only focus:p-4 focus:bg-white focus:absolute focus:z-50">
+          Skip to main content
+        </a>
+        <h1 className="sr-only">Accountant Dashboard</h1>
+        <main id="main-content" className="h-full">
+          <DashboardLayout>{children}</DashboardLayout>
+        </main>
       </body>
     </html>
   );
