@@ -10,6 +10,7 @@ import {
 import { Ionicons, FontAwesome } from "@expo/vector-icons";
 import Header from "@/components/Header";
 import Avatar from "@/components/Avatar";
+import { useRouter } from "expo-router";
 
 const initialMembers = [
   {
@@ -100,6 +101,7 @@ const initialWorkedShifts = [
 ];
 
 export default function StaffScreen() {
+  const router = useRouter();
   const [salariesTab, setSalariesTab] = useState("Pending Approval (5)");
   const [workedTab, setWorkedTab] = useState("Pending Approval (5)");
   const [salariesList, setSalariesList] = useState(initialSalaries);
@@ -166,7 +168,7 @@ export default function StaffScreen() {
             ))}
           </View>
 
-          <TouchableOpacity style={styles.seeAllLink}>
+          <TouchableOpacity style={styles.seeAllLink} onPress={() => router.push("/staff/members")}>
             <Text style={styles.seeAllLinkText}>See All Members</Text>
           </TouchableOpacity>
         </View>
@@ -264,7 +266,7 @@ export default function StaffScreen() {
             <Text style={styles.emptyText}>No pending payments.</Text>
           )}
 
-          <TouchableOpacity style={styles.seeAllLink}>
+          <TouchableOpacity style={styles.seeAllLink} onPress={() => router.push("/staff/salaries")}>
             <Text style={styles.seeAllLinkText}>See Salary Details</Text>
           </TouchableOpacity>
         </View>

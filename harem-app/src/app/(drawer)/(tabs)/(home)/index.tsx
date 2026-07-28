@@ -242,7 +242,7 @@ export default function HomeScreen() {
             {value}
           </Text>
         </View>
-        <TouchableOpacity style={styles.seeAllSummary} onPress={() => router.push("/home/payments")}>
+        <TouchableOpacity style={styles.seeAllSummary} onPress={() => router.push("/payments")}>
           <Text style={[styles.seeAllSummaryText, isPrimary && styles.seeAllSummaryTextPrimary]}>
             See All
           </Text>
@@ -259,8 +259,8 @@ export default function HomeScreen() {
     setExpandedPayId((prev) => (prev === id ? null : id));
   };
 
-  const renderExpandedContent = (status: string) => {
-    const steps = getStepData(status);
+  const renderExpandedContent = (item: any) => {
+    const steps = getStepData(item.status);
 
     return (
       <View style={styles.expandedWrapper}>
@@ -346,7 +346,11 @@ export default function HomeScreen() {
             <Text style={styles.btnOutlineText}>Print Receipt</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.btnSolid} activeOpacity={0.7}>
+          <TouchableOpacity
+            style={styles.btnSolid}
+            activeOpacity={0.7}
+            onPress={() => router.push(`/appoinment/${item.id}`)}
+          >
             <Ionicons name="list-outline" size={16} color="#FFFFFF" style={{ marginRight: 6 }} />
             <Text style={styles.btnSolidText}>View Details</Text>
           </TouchableOpacity>
@@ -596,7 +600,7 @@ export default function HomeScreen() {
                     </View>
                   </TouchableOpacity>
 
-                  {isExpanded && renderExpandedContent(item.status)}
+                  {isExpanded && renderExpandedContent(item)}
                 </View>
               );
             })}
@@ -605,7 +609,7 @@ export default function HomeScreen() {
           <TouchableOpacity 
             style={styles.seeAllLink} 
             activeOpacity={0.7}
-            onPress={() => router.push("/home/appointments")}
+            onPress={() => router.push("/appointments")}
           >
             <Text style={styles.seeAllLinkText}>See All Appointments</Text>
           </TouchableOpacity>
@@ -696,7 +700,7 @@ export default function HomeScreen() {
           <TouchableOpacity 
             style={styles.seeAllLink} 
             activeOpacity={0.7}
-            onPress={() => router.push("/home/payments")}
+            onPress={() => router.push("/payments")}
           >
             <Text style={styles.seeAllLinkText}>See All Payments</Text>
           </TouchableOpacity>

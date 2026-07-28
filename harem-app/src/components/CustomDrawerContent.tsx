@@ -71,7 +71,7 @@ export default function CustomDrawerContent(props: any) {
         activeOpacity={0.7}
       >
         <Ionicons
-          name={item.icon}
+          name={item.icon as any}
           size={20}
           color={active ? "#FFFFFF" : "#4B5563"}
           style={styles.itemIcon}

@@ -206,8 +206,8 @@ export default function AppointmentsScreen() {
     setExpandedId((prev) => (prev === id ? null : id));
   };
 
-  const renderExpandedContent = (status: string) => {
-    const steps = getStepData(status);
+  const renderExpandedContent = (item: any) => {
+    const steps = getStepData(item.status);
 
     return (
       <View style={styles.expandedWrapper}>
@@ -278,7 +278,11 @@ export default function AppointmentsScreen() {
             <Ionicons name="print-outline" size={16} color="#5C55FF" style={{ marginRight: 6 }} />
             <Text style={styles.btnOutlineText}>Print Receipt</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.btnSolid} activeOpacity={0.7}>
+          <TouchableOpacity
+            style={styles.btnSolid}
+            activeOpacity={0.7}
+            onPress={() => router.push(`/appoinment/${item.id}`)}
+          >
             <Ionicons name="list-outline" size={16} color="#FFFFFF" style={{ marginRight: 6 }} />
             <Text style={styles.btnSolidText}>View Details</Text>
           </TouchableOpacity>
@@ -403,7 +407,7 @@ export default function AppointmentsScreen() {
                     </View>
                   </TouchableOpacity>
 
-                  {isExpanded && renderExpandedContent(item.status)}
+                  {isExpanded && renderExpandedContent(item)}
                 </View>
               );
             })

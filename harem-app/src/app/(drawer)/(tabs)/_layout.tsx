@@ -1,6 +1,15 @@
 import { NativeTabs } from "expo-router/unstable-native-tabs";
+import { usePathname } from "expo-router";
 
 export default function TabLayout() {
+  const pathname = usePathname();
+  const isRootTab =
+    pathname === "/" ||
+    pathname === "/staff" ||
+    pathname === "/calendar" ||
+    pathname === "/finance" ||
+    pathname === "/statistics";
+
   return (
     <NativeTabs
       backgroundColor="#ffffff"
@@ -12,9 +21,10 @@ export default function TabLayout() {
         selected: { color: "#5C55FF", fontSize: 11 }
       }}
       indicatorColor={"#fff"}
+      hidden={!isRootTab}
     >
       <NativeTabs.Trigger
-        name="index"
+        name="(home)"
       >
         <NativeTabs.Trigger.Label>Home</NativeTabs.Trigger.Label>
         <NativeTabs.Trigger.Icon sf="house" md="home" />
