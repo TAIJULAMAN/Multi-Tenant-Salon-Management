@@ -4,7 +4,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { ChevronDown } from "lucide-react";
 
 interface CustomSelectProps {
-  label: string;
+  label?: string;
   value: string;
   options: string[];
   onChange: (val: string) => void;
@@ -31,7 +31,7 @@ export default function CustomSelect({ label, value, options, onChange, placehol
 
   return (
     <div className="flex flex-col gap-2" ref={dropdownRef}>
-      <label className="text-sm font-semibold text-slate-700">{label}</label>
+      {label && <label className="text-sm font-semibold text-slate-700">{label}</label>}
       <div className="relative">
         <button
           type="button"
