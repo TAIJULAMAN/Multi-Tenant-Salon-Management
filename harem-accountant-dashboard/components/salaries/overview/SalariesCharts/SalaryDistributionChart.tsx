@@ -27,7 +27,7 @@ export default function SalaryDistributionChart() {
   const chartHeight = SVG_HEIGHT - PADDING_TOP - PADDING_BOTTOM;
 
   return (
-    <div className="flex flex-col rounded-[24px] border border-slate-100 bg-white p-6 shadow-sm">
+    <div className="flex flex-col rounded-xl border border-slate-100 bg-white p-6 shadow-sm">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
         <div>
@@ -39,7 +39,10 @@ export default function SalaryDistributionChart() {
           </span>
         </div>
         <div className="flex items-center gap-2 sm:gap-3 justify-between sm:justify-end">
-          <YearSelect selectedYear={selectedYear} onYearChange={setSelectedYear} />
+          <YearSelect
+            selectedYear={selectedYear}
+            onYearChange={setSelectedYear}
+          />
           <button
             onClick={() => setIsExportOpen(true)}
             className="flex items-center gap-1.5 border border-brand bg-white text-brand text-xs font-semibold px-3 py-1.5 rounded-lg transition-all shadow-sm cursor-pointer hover:bg-brand/5"
@@ -52,10 +55,16 @@ export default function SalaryDistributionChart() {
 
       {/* Distribution Bar Chart SVG */}
       <div className="relative flex-1 min-h-[220px]">
-        <svg className="w-full h-full" viewBox={`0 0 ${SVG_WIDTH} ${SVG_HEIGHT}`}>
+        <svg
+          className="w-full h-full"
+          viewBox={`0 0 ${SVG_WIDTH} ${SVG_HEIGHT}`}
+        >
           {/* Grid Lines */}
           {[0, 4, 8, 12, DISTRIBUTION_Y_MAX].map((tick, idx) => {
-            const y = PADDING_TOP + chartHeight - (tick / DISTRIBUTION_Y_MAX) * chartHeight;
+            const y =
+              PADDING_TOP +
+              chartHeight -
+              (tick / DISTRIBUTION_Y_MAX) * chartHeight;
             return (
               <g key={idx}>
                 <line
@@ -84,7 +93,10 @@ export default function SalaryDistributionChart() {
             const barWidth = 14;
             const x =
               PADDING_LEFT + idx * groupWidth + (groupWidth - barWidth) / 2;
-            const y = PADDING_TOP + chartHeight - (val / DISTRIBUTION_Y_MAX) * chartHeight;
+            const y =
+              PADDING_TOP +
+              chartHeight -
+              (val / DISTRIBUTION_Y_MAX) * chartHeight;
             const h = (val / DISTRIBUTION_Y_MAX) * chartHeight;
             const isHovered = activeBarIndex === idx;
 

@@ -10,7 +10,6 @@ import {
   FileText,
   Wallet,
   Store,
-  ChevronDown,
   ChevronRight,
   X,
   LineChart,
@@ -19,6 +18,9 @@ import {
   History,
   Users,
   FileSignature,
+  DollarSign,
+  CreditCard,
+  Receipt,
 } from "lucide-react";
 import Image from "next/image";
 
@@ -29,56 +31,33 @@ interface SidebarProps {
 
 export default function Sidebar({ isOpen, onClose }: SidebarProps) {
   const pathname = usePathname();
-  const [clickedItem, setClickedItem] = useState<string | null>(null);
+
   const [prevPath, setPrevPath] = useState(pathname);
+  const [expandedItem, setExpandedItem] = useState<string | null>(() => {
+    if (pathname.startsWith("/salaries")) return "Salaries";
+    if (pathname.startsWith("/taxes")) return "Taxes & Compliance";
+    if (pathname.startsWith("/documents")) return "Documents";
+    if (pathname.startsWith("/budgeting")) return "Budgeting & Finances";
+    return null;
+  });
 
   if (pathname !== prevPath) {
     setPrevPath(pathname);
-    setClickedItem(null);
+    setExpandedItem(
+      pathname.startsWith("/salaries")
+        ? "Salaries"
+        : pathname.startsWith("/taxes")
+          ? "Taxes & Compliance"
+          : pathname.startsWith("/documents")
+            ? "Documents"
+            : pathname.startsWith("/budgeting")
+              ? "Budgeting & Finances"
+              : null
+    );
   }
 
-  const activeItem =
-    clickedItem ||
-    (pathname === "/salaries/overview"
-      ? "Salaries-Overview"
-      : pathname === "/salaries/history"
-        ? "Salaries-History"
-        : pathname === "/salaries/upload"
-          ? "Salaries-Upload"
-          : pathname === "/salaries/pending"
-            ? "Salaries-Pending"
-            : pathname === "/taxes/overview"
-              ? "Taxes-Overview"
-              : pathname === "/taxes/history"
-                ? "Taxes-History"
-                : pathname === "/taxes/new-upload"
-                  ? "Taxes-Upload"
-                  : pathname === "/taxes/pending"
-                    ? "Taxes-Pending"
-                    : pathname === "/notifications"
-                      ? "Notifications"
-                      : pathname === "/documents/overview"
-                        ? "Documents-Overview"
-                        : pathname === "/documents/new-upload"
-                          ? "Documents-Upload"
-                          : pathname === "/documents/employee-notices"
-                            ? "Documents-EmployeeNotices"
-                            : pathname === "/documents/contracts"
-                              ? "Documents-Contracts"
-                              : pathname === "/documents/owner-documents"
-                                ? "Documents-OwnerDocuments"
-                                : "");
-
-  const [expandedItems, setExpandedItems] = useState<Record<string, boolean>>({
-    Salaries: true,
-    "Taxes & Compliance": true,
-    Documents: false,
-    "Budgeting & Finances": false,
-    "Salons & Invitations": false,
-  });
-
   const toggleExpand = (name: string) => {
-    setExpandedItems((prev) => ({ ...prev, [name]: !prev[name] }));
+    setExpandedItem((prev) => (prev === name ? null : name));
   };
 
   const navItems = [
@@ -87,7 +66,6 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
       name: "Salaries",
       icon: HandCoins,
       hasDropdown: true,
-      basePrefix: "Salaries",
       subItems: [
         { name: "Overview", icon: LineChart, path: "/salaries/overview", id: "Salaries-Overview" },
         { name: "New Upload", icon: Upload, path: "/salaries/upload", id: "Salaries-Upload" },
@@ -99,7 +77,6 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
       name: "Taxes & Compliance",
       icon: ShieldCheck,
       hasDropdown: true,
-      basePrefix: "Taxes",
       subItems: [
         { name: "Overview", icon: LineChart, path: "/taxes/overview", id: "Taxes-Overview" },
         { name: "New Upload", icon: Upload, path: "/taxes/new-upload", id: "Taxes-Upload" },
@@ -111,7 +88,6 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
       name: "Documents",
       icon: FileText,
       hasDropdown: true,
-      basePrefix: "Documents",
       subItems: [
         { name: "Overview", icon: LineChart, path: "/documents/overview", id: "Documents-Overview" },
         { name: "New Upload", icon: Upload, path: "/documents/new-upload", id: "Documents-Upload" },
@@ -120,7 +96,18 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
         { name: "Owner Documents", icon: FileSignature, path: "/documents/owner-documents", id: "Documents-OwnerDocuments" },
       ]
     },
-    { name: "Budgeting & Finances", icon: Wallet, hasDropdown: true },
+    {
+      name: "Budgeting & Finances",
+      icon: Wallet,
+      hasDropdown: true,
+      subItems: [
+        { name: "Overview", icon: LineChart, path: "/budgeting/overview", id: "Budgeting-Overview" },
+        { name: "Expense Management", icon: Wallet, path: "/budgeting/expense", id: "Budgeting-Expense" },
+        { name: "Income & Revenue", icon: DollarSign, path: "/budgeting/income", id: "Budgeting-Income" },
+        { name: "Payments", icon: CreditCard, path: "/budgeting/payments", id: "Budgeting-Payments" },
+        { name: "Receipts", icon: Receipt, path: "/budgeting/receipts", id: "Budgeting-Receipts" },
+      ]
+    },
     { name: "Salons & Invitations", icon: Store, hasDropdown: true },
   ];
 
@@ -137,7 +124,7 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
       {/* Sidebar Container */}
       <aside
         className={`
-        fixed inset-y-0 left-0 z-50 flex w-72 flex-col border-r border-slate-100 bg-white px-6 py-6 transition-transform duration-300 ease-in-out lg:static lg:translate-x-0
+        fixed inset-y-0 left-0 z-50 flex w-72 h-screen flex-col border-r border-slate-100 bg-white px-6 py-6 transition-transform duration-300 ease-in-out lg:static lg:translate-x-0 lg:h-screen
         ${isOpen ? "translate-x-0" : "-translate-x-full"}
       `}
       >
@@ -165,41 +152,47 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
           <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">
             Main
           </span>
-
           <nav className="mt-4 space-y-1">
             {navItems.map((item) => {
-              const isActive = activeItem === item.name;
-              const isExpanded = expandedItems[item.name];
+              const isParentActive = item.subItems
+                ? item.subItems.some((subItem) => pathname === subItem.path)
+                : item.name === "Dashboard"
+                  ? pathname === "/"
+                  : pathname === `/${item.name.toLowerCase()}`;
+              const isExpanded = expandedItem === item.name;
               const Icon = item.icon;
 
               return (
                 <div key={item.name} className="space-y-1">
                   {item.subItems ? (
                     <div
-                      className={`${activeItem?.startsWith(item.basePrefix!) ? "bg-[#f5f6ff]/70" : ""} rounded-lg p-3 space-y-3 transition-colors`}
+                      className={`${isParentActive ? "bg-[#f5f6ff]/70" : ""} rounded-lg p-3 space-y-3 transition-colors`}
                     >
                       {/* Section Header */}
                       <button
                         onClick={() => toggleExpand(item.name)}
-                        className={`flex w-full items-center justify-between text-sm font-medium px-1 cursor-pointer transition-colors ${activeItem?.startsWith(item.basePrefix!) || isExpanded
-                          ? "text-brand"
-                          : "text-slate-500 hover:text-slate-900"
-                          }`}
+                        className={`flex w-full items-center justify-between text-sm font-medium px-1 cursor-pointer transition-colors ${
+                          isParentActive || isExpanded
+                            ? "text-brand"
+                            : "text-slate-500 hover:text-slate-900"
+                        }`}
                       >
                         <div className="flex items-center gap-3">
                           <Icon
                             size={18}
                             className={
-                              activeItem?.startsWith(item.basePrefix!) || isExpanded
+                              isParentActive || isExpanded
                                 ? "text-brand"
                                 : "text-slate-400"
                             }
                           />
                           <span>{item.name}</span>
                         </div>
-                        <ChevronDown
+                        <ChevronRight
                           size={14}
-                          className={`${activeItem?.startsWith(item.basePrefix!) || isExpanded ? "text-brand" : "text-slate-400"} transition-transform duration-200 ${isExpanded ? "" : "rotate-180"}`}
+                          className={`${
+                            isParentActive || isExpanded ? "text-brand" : "text-slate-400"
+                          } transition-transform duration-200 ${isExpanded ? "rotate-90" : ""}`}
                         />
                       </button>
 
@@ -208,20 +201,20 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
                         <div className="space-y-2.5 animate-in fade-in slide-in-from-top-1 duration-150">
                           {item.subItems.map((subItem) => {
                             const SubIcon = subItem.icon;
-                            const isSubActive = activeItem === subItem.id;
+                            const isSubActive = pathname === subItem.path;
 
                             return (
                               <Link
                                 key={subItem.id}
                                 href={subItem.path}
                                 onClick={() => {
-                                  setClickedItem(subItem.id);
                                   if (window.innerWidth < 1024) onClose();
                                 }}
                                 className={`flex w-full items-center gap-3 rounded-xl px-4 py-3 text-xs font-bold transition-all cursor-pointer
-                                  ${isSubActive
-                                    ? "bg-brand text-white shadow-md shadow-brand/20"
-                                    : "bg-brand/5 text-brand hover:bg-brand/10"
+                                  ${
+                                    isSubActive
+                                      ? "bg-brand text-white shadow-md shadow-brand/20"
+                                      : "bg-brand/5 text-brand hover:bg-brand/10"
                                   }
                                 `}
                               >
@@ -240,9 +233,10 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
                           onClick={() => toggleExpand(item.name)}
                           className={`
                             flex w-full items-center justify-between rounded-xl px-4 py-3 text-sm font-medium transition-all duration-200 cursor-pointer
-                            ${isActive
-                              ? "bg-brand text-white shadow-md shadow-brand/20"
-                              : "text-slate-500 hover:bg-slate-50 hover:text-slate-900"
+                            ${
+                              isParentActive
+                                ? "bg-brand text-white shadow-md shadow-brand/20"
+                                : "text-slate-500 hover:bg-slate-50 hover:text-slate-900"
                             }
                           `}
                         >
@@ -250,18 +244,17 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
                             <Icon
                               size={18}
                               className={
-                                isActive
+                                isParentActive
                                   ? "text-white"
                                   : "text-slate-400 group-hover:text-slate-600"
                               }
                             />
                             <span>{item.name}</span>
                           </div>
-                          {isExpanded ? (
-                            <ChevronDown size={14} />
-                          ) : (
-                            <ChevronRight size={14} />
-                          )}
+                          <ChevronRight
+                            size={14}
+                            className={`transition-transform duration-200 ${isExpanded ? "rotate-90" : ""}`}
+                          />
                         </button>
                       ) : (
                         <Link
@@ -277,16 +270,17 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
                           }}
                           className={`
                             flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition-all duration-200 cursor-pointer
-                            ${isActive
-                              ? "bg-brand text-white shadow-md shadow-brand/20"
-                              : "text-slate-500 hover:bg-slate-50 hover:text-slate-900"
+                            ${
+                              isParentActive
+                                ? "bg-brand text-white shadow-md shadow-brand/20"
+                                : "text-slate-500 hover:bg-slate-50 hover:text-slate-900"
                             }
                           `}
                         >
                           <Icon
                             size={18}
                             className={
-                              isActive ? "text-white" : "text-slate-400"
+                              isParentActive ? "text-white" : "text-slate-400"
                             }
                           />
                           <span>{item.name}</span>

@@ -213,7 +213,7 @@ export default function SalaryUploadStep2({
             return (
               <div
                 key={packet.id}
-                className={`group rounded-[24px] border bg-white p-5 shadow-sm transition-all duration-200 text-left flex flex-col justify-between ${
+                className={`group rounded-xl border bg-white p-5 shadow-sm transition-all duration-200 text-left flex flex-col justify-between ${
                   isSelected
                     ? "border-brand ring-2 ring-brand/10 bg-brand/[0.005]"
                     : "border-slate-100 hover:border-slate-200 hover:shadow-md"

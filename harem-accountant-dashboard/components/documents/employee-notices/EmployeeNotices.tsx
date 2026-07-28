@@ -8,19 +8,22 @@ import SendNoticeModal from "./SendNoticeModal";
 import SuccessModal from "./SuccessModal";
 import NoticeDetailsModal from "./NoticeDetailsModal";
 import { mockNotices, EmployeeNotice } from "./data";
+import Image from "next/image";
 
 export default function EmployeeNotices() {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
-  
+
   const [isSendModalOpen, setIsSendModalOpen] = useState(false);
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
-  const [selectedNotice, setSelectedNotice] = useState<EmployeeNotice | null>(null);
+  const [selectedNotice, setSelectedNotice] = useState<EmployeeNotice | null>(
+    null,
+  );
 
   const totalPages = Math.ceil(mockNotices.length / itemsPerPage);
   const paginatedData = mockNotices.slice(
     (currentPage - 1) * itemsPerPage,
-    currentPage * itemsPerPage
+    currentPage * itemsPerPage,
   );
 
   return (
@@ -54,25 +57,50 @@ export default function EmployeeNotices() {
           <table className="w-full text-left border-collapse">
             <thead>
               <tr className="bg-[#f8fafc] border-b border-slate-100">
-                <th className="px-6 py-5 text-xs font-bold text-slate-700 whitespace-nowrap">Title</th>
-                <th className="px-6 py-5 text-xs font-bold text-slate-700 whitespace-nowrap">Recipient</th>
-                <th className="px-6 py-5 text-xs font-bold text-slate-700 whitespace-nowrap">Date Sent</th>
-                <th className="px-6 py-5 text-xs font-bold text-slate-700 whitespace-nowrap">Status</th>
-                <th className="px-6 py-5 text-xs font-bold text-slate-700 whitespace-nowrap">Actions</th>
+                <th className="px-6 py-5 text-xs font-bold text-slate-700 whitespace-nowrap">
+                  Title
+                </th>
+                <th className="px-6 py-5 text-xs font-bold text-slate-700 whitespace-nowrap">
+                  Recipient
+                </th>
+                <th className="px-6 py-5 text-xs font-bold text-slate-700 whitespace-nowrap">
+                  Date Sent
+                </th>
+                <th className="px-6 py-5 text-xs font-bold text-slate-700 whitespace-nowrap">
+                  Status
+                </th>
+                <th className="px-6 py-5 text-xs font-bold text-slate-700 whitespace-nowrap">
+                  Actions
+                </th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100">
               {paginatedData.map((notice) => (
-                <tr key={notice.id} className="hover:bg-slate-50/50 transition-colors">
+                <tr
+                  key={notice.id}
+                  className="hover:bg-slate-50/50 transition-colors"
+                >
                   <td className="px-6 py-5">
-                    <div className="text-sm font-bold text-slate-700">{notice.title}</div>
+                    <div className="text-sm font-bold text-slate-700">
+                      {notice.title}
+                    </div>
                   </td>
                   <td className="px-6 py-5">
                     <div className="flex items-center gap-3">
-                      <img src={notice.recipient.avatar} alt="avatar" className="w-10 h-10 rounded-full object-cover bg-slate-100 ring-2 ring-white shadow-sm" />
+                      <Image
+                        width={40}
+                        height={40}
+                        src={notice.recipient.avatar}
+                        alt="avatar"
+                        className="w-10 h-10 rounded-xl object-cover bg-slate-100 ring-2 ring-white shadow-sm"
+                      />
                       <div>
-                        <div className="text-sm font-bold text-slate-700">{notice.recipient.name}</div>
-                        <div className="text-[11px] font-medium text-slate-400">{notice.recipient.email}</div>
+                        <div className="text-sm font-bold text-slate-700">
+                          {notice.recipient.name}
+                        </div>
+                        <div className="text-[11px] font-medium text-slate-400">
+                          {notice.recipient.email}
+                        </div>
                       </div>
                     </div>
                   </td>
@@ -80,9 +108,11 @@ export default function EmployeeNotices() {
                     {notice.dateSent}
                   </td>
                   <td className="px-6 py-5">
-                    <div className={`inline-flex items-center justify-center px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider
+                    <div
+                      className={`inline-flex items-center justify-center px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider
                       ${notice.status === "Read" ? "bg-[#eafff5] text-[#22c55e]" : "bg-[#fffbf0] text-[#facc15]"}
-                    `}>
+                    `}
+                    >
                       {notice.status}
                     </div>
                   </td>
@@ -102,7 +132,7 @@ export default function EmployeeNotices() {
 
         {/* Footer / Pagination */}
         <div className="px-6 py-4 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-end">
-           <Pagination
+          <Pagination
             currentPage={currentPage}
             totalPages={totalPages}
             itemsPerPage={itemsPerPage}
@@ -113,7 +143,7 @@ export default function EmployeeNotices() {
       </div>
 
       {/* Modals */}
-      <SendNoticeModal 
+      <SendNoticeModal
         isOpen={isSendModalOpen}
         onClose={() => setIsSendModalOpen(false)}
         onSuccess={() => setIsSuccessModalOpen(true)}

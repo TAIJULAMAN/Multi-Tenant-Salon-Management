@@ -7,7 +7,7 @@ import { declinedSalariesData } from "./data";
 
 export default function RecentlyDeclinedSalaries() {
   return (
-    <div className="rounded-[24px] border border-slate-100 bg-white p-6 sm:p-7 shadow-sm space-y-5">
+    <div className="rounded-xl border border-slate-100 bg-white p-6 sm:p-7 shadow-sm space-y-5">
       {/* Header */}
       <div className="flex items-center justify-between">
         <h3 className="text-base sm:text-lg font-bold text-slate-800 tracking-tight">

@@ -28,7 +28,8 @@ export default function SalaryExpendituresChart() {
 
   const areaPoints = payrollValues.map((val, idx) => {
     const x = PADDING_LEFT + (idx / (payrollValues.length - 1)) * chartWidth;
-    const y = PADDING_TOP + chartHeight - (val / EXPENDITURES_Y_MAX) * chartHeight;
+    const y =
+      PADDING_TOP + chartHeight - (val / EXPENDITURES_Y_MAX) * chartHeight;
     return { x, y, value: val, label: payrollMonths[idx] };
   });
 
@@ -51,7 +52,7 @@ export default function SalaryExpendituresChart() {
   const fillPath = `${linePath} L ${areaPoints[areaPoints.length - 1].x} ${PADDING_TOP + chartHeight} L ${areaPoints[0].x} ${PADDING_TOP + chartHeight} Z`;
 
   return (
-    <div className="flex flex-col rounded-[24px] border border-slate-100 bg-white p-6 shadow-sm">
+    <div className="flex flex-col rounded-xl border border-slate-100 bg-white p-6 shadow-sm">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
         <div>
@@ -63,7 +64,10 @@ export default function SalaryExpendituresChart() {
           </span>
         </div>
         <div className="flex items-center gap-2 sm:gap-3 justify-between sm:justify-end">
-          <YearSelect selectedYear={selectedYear} onYearChange={setSelectedYear} />
+          <YearSelect
+            selectedYear={selectedYear}
+            onYearChange={setSelectedYear}
+          />
           <button
             onClick={() => setIsExportOpen(true)}
             className="flex items-center gap-1.5 border border-brand bg-white text-brand text-xs font-semibold px-3 py-1.5 rounded-lg transition-all shadow-sm cursor-pointer hover:bg-brand/5"
@@ -76,9 +80,18 @@ export default function SalaryExpendituresChart() {
 
       {/* Area Chart SVG */}
       <div className="relative flex-1 min-h-[220px]">
-        <svg className="w-full h-full" viewBox={`0 0 ${SVG_WIDTH} ${SVG_HEIGHT}`}>
+        <svg
+          className="w-full h-full"
+          viewBox={`0 0 ${SVG_WIDTH} ${SVG_HEIGHT}`}
+        >
           <defs>
-            <linearGradient id="expendituresGradient" x1="0" y1="0" x2="0" y2="1">
+            <linearGradient
+              id="expendituresGradient"
+              x1="0"
+              y1="0"
+              x2="0"
+              y2="1"
+            >
               <stop offset="0%" stopColor="#0ca678" stopOpacity="0.18" />
               <stop offset="100%" stopColor="#0ca678" stopOpacity="0.0" />
             </linearGradient>
@@ -86,7 +99,10 @@ export default function SalaryExpendituresChart() {
 
           {/* Horizontal Grid Lines */}
           {[0, 3500, 7000, 10500, EXPENDITURES_Y_MAX].map((tick, idx) => {
-            const y = PADDING_TOP + chartHeight - (tick / EXPENDITURES_Y_MAX) * chartHeight;
+            const y =
+              PADDING_TOP +
+              chartHeight -
+              (tick / EXPENDITURES_Y_MAX) * chartHeight;
             return (
               <g key={idx}>
                 <line
@@ -165,7 +181,9 @@ export default function SalaryExpendituresChart() {
               y={SVG_HEIGHT - 10}
               textAnchor="middle"
               className={`text-[10px] font-semibold transition-colors duration-200 ${
-                activeAreaIndex === idx ? "fill-slate-700 font-bold" : "fill-slate-400"
+                activeAreaIndex === idx
+                  ? "fill-slate-700 font-bold"
+                  : "fill-slate-400"
               }`}
             >
               {pt.label}

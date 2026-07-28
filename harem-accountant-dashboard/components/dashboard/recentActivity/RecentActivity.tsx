@@ -35,7 +35,7 @@ export default function RecentActivity({ selectedSalon }: RecentActivityProps) {
   ];
 
   return (
-    <div className="flex flex-col h-full rounded-[24px] border border-slate-100 bg-white p-5 sm:p-7.5 shadow-sm">
+    <div className="flex flex-col h-full rounded-xl border border-slate-100 bg-white p-5 sm:p-7.5 shadow-sm">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
         <h3 className="text-lg font-bold text-slate-800 tracking-tight">

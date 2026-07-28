@@ -6,7 +6,7 @@ import { salonsData } from "@/components/dashboard/salonOverview/data";
 
 export default function SalonOverview() {
   return (
-    <div className="flex flex-col h-full rounded-[24px] border border-slate-100 bg-white p-5 sm:p-7.5 shadow-sm">
+    <div className="flex flex-col h-full rounded-xl border border-slate-100 bg-white p-5 sm:p-7.5 shadow-sm">
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <h3 className="text-lg font-bold text-slate-800 tracking-tight">
