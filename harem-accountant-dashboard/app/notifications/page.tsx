@@ -58,7 +58,7 @@ export default function NotificationsPage() {
         title="Notifications"
         description="Review and manage your accountant compliance alerts, payroll approvals, and budget status."
       />
-      <div className="rounded-[24px] border border-slate-100 bg-white p-6.5 shadow-sm space-y-6">
+      <div className="rounded-xl border border-slate-100 bg-white p-6.5 shadow-sm space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-slate-100 pb-5">
           <div className="flex gap-2">
             {(["all", "unread", "read"] as const).map((t) => (

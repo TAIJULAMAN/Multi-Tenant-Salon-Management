@@ -89,7 +89,7 @@ export default function SalaryUploadFlow() {
       {step === 3 && (
         <div className="space-y-6">
           {/* Summary Card */}
-          <div className="bg-white border border-slate-100 rounded-[24px] p-6 shadow-sm text-left">
+          <div className="bg-white border border-slate-100 rounded-xl p-6 shadow-sm text-left">
             <h3 className="font-bold text-slate-800 text-base mb-5">Summary</h3>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
               <div className="flex flex-col justify-center">
@@ -137,7 +137,7 @@ export default function SalaryUploadFlow() {
           </div>
 
           {/* Approved Packets Card */}
-          <div className="bg-white border border-slate-100 rounded-[24px] shadow-sm overflow-hidden text-left">
+          <div className="bg-white border border-slate-100 rounded-xl shadow-sm overflow-hidden text-left">
             <div className="p-6 pb-2">
               <h3 className="font-bold text-slate-800 text-base">
                 Approved Packets
