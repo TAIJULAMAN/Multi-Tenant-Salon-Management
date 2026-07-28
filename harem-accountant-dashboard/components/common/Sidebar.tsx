@@ -17,6 +17,8 @@ import {
   Upload,
   Clipboard,
   History,
+  Users,
+  FileSignature,
 } from "lucide-react";
 import Image from "next/image";
 
@@ -55,7 +57,17 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
                     ? "Taxes-Pending"
                     : pathname === "/notifications"
                       ? "Notifications"
-                      : "");
+                      : pathname === "/documents/overview"
+                        ? "Documents-Overview"
+                        : pathname === "/documents/new-upload"
+                          ? "Documents-Upload"
+                          : pathname === "/documents/employee-notices"
+                            ? "Documents-EmployeeNotices"
+                            : pathname === "/documents/contracts"
+                              ? "Documents-Contracts"
+                              : pathname === "/documents/owner-documents"
+                                ? "Documents-OwnerDocuments"
+                                : "");
 
   const [expandedItems, setExpandedItems] = useState<Record<string, boolean>>({
     Salaries: true,
@@ -95,7 +107,19 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
         { name: "History", icon: History, path: "/taxes/history", id: "Taxes-History" },
       ]
     },
-    { name: "Documents", icon: FileText, hasDropdown: true },
+    {
+      name: "Documents",
+      icon: FileText,
+      hasDropdown: true,
+      basePrefix: "Documents",
+      subItems: [
+        { name: "Overview", icon: LineChart, path: "/documents/overview", id: "Documents-Overview" },
+        { name: "New Upload", icon: Upload, path: "/documents/new-upload", id: "Documents-Upload" },
+        { name: "Employee Notices", icon: Users, path: "/documents/employee-notices", id: "Documents-EmployeeNotices" },
+        { name: "Contracts", icon: FileText, path: "/documents/contracts", id: "Documents-Contracts" },
+        { name: "Owner Documents", icon: FileSignature, path: "/documents/owner-documents", id: "Documents-OwnerDocuments" },
+      ]
+    },
     { name: "Budgeting & Finances", icon: Wallet, hasDropdown: true },
     { name: "Salons & Invitations", icon: Store, hasDropdown: true },
   ];
