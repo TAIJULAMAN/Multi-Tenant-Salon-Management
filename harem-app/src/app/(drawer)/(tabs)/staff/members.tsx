@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -14,70 +14,21 @@ import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Avatar from "@/components/Avatar";
-
-interface StaffMember {
-  id: string;
-  name: string;
-  role: string;
-  avatar: string;
-  isSuspended?: boolean;
-}
+import { staffStore, StaffMember } from "@/components/staff/CreateStaff/staffStore";
 
 export default function StaffMembersScreen() {
   const router = useRouter();
   const insets = useSafeAreaInsets();
 
-  // Mock staff data
-  const [members, setMembers] = useState<StaffMember[]>([
-    {
-      id: "1",
-      name: "Leslie Alexander",
-      role: "Senior Stylist",
-      avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=100&q=80",
-    },
-    {
-      id: "2",
-      name: "Jane Cooper",
-      role: "Senior Stylist",
-      avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=100&q=80",
-    },
-    {
-      id: "3",
-      name: "Cameron Williamson",
-      role: "Junior Stylist",
-      avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&q=80",
-    },
-    {
-      id: "4",
-      name: "Eleanor Pena",
-      role: "Senior Stylist",
-      avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=100&q=80",
-    },
-    {
-      id: "5",
-      name: "Guy Hawkins",
-      role: "Junior Stylist",
-      avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=100&q=80",
-    },
-    {
-      id: "6",
-      name: "Kristin Watson",
-      role: "Senior Stylist",
-      avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80",
-    },
-    {
-      id: "7",
-      name: "Courtney Henry",
-      role: "Junior Stylist",
-      avatar: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=100&q=80",
-    },
-    {
-      id: "8",
-      name: "Albert Flores",
-      role: "Senior Stylist",
-      avatar: "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?auto=format&fit=crop&w=100&q=80",
-    },
-  ]);
+  // Mock staff data from store
+  const [members, setMembers] = useState<StaffMember[]>(staffStore.getMembers());
+
+  useEffect(() => {
+    const unsubscribe = staffStore.subscribe(() => {
+      setMembers(staffStore.getMembers());
+    });
+    return unsubscribe;
+  }, []);
 
   const [activeMenuId, setActiveMenuId] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
@@ -89,14 +40,19 @@ export default function StaffMembersScreen() {
   );
 
   const handleOptionPress = (action: string, member: StaffMember) => {
+    console.log("pressed");
+    
     setActiveMenuId(null);
     if (action === "details") {
-      Alert.alert(
-        "Staff Member Details",
-        `Name: ${member.name}\nRole: ${member.role}\nStatus: ${
-          member.isSuspended ? "Suspended" : "Active"
-        }`
-      );
+      router.push({
+        pathname: "/staff/details/[id]",
+        params: {
+          id: member.id,
+          name: member.name,
+          role: member.role,
+          avatar: member.avatar,
+        },
+      });
     } else if (action === "calendar") {
       Alert.alert("Calendar", `Opening schedule calendar for ${member.name}`);
     } else if (action === "password") {
@@ -115,11 +71,7 @@ export default function StaffMembersScreen() {
             text: isSuspending ? "Suspend" : "Activate",
             style: isSuspending ? "destructive" : "default",
             onPress: () => {
-              setMembers((prev) =>
-                prev.map((m) =>
-                  m.id === member.id ? { ...m, isSuspended: isSuspending } : m
-                )
-              );
+              staffStore.toggleSuspend(member.id);
               Alert.alert(
                 "Success",
                 `${member.name} has been ${isSuspending ? "suspended" : "activated"}.`
@@ -132,34 +84,12 @@ export default function StaffMembersScreen() {
   };
 
   const handleAddMember = () => {
-    Alert.alert("Add Member", "Enter staff member details below:", [
-      { text: "Cancel", style: "cancel" },
-      {
-        text: "Add Stylist",
-        onPress: () => {
-          const newMember: StaffMember = {
-            id: String(members.length + 1),
-            name: "New Stylist",
-            role: "Junior Stylist",
-            avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80",
-          };
-          setMembers((prev) => [...prev, newMember]);
-          Alert.alert("Success", "New staff member added successfully!");
-        },
-      },
-    ]);
+    router.push("/staff/add");
   };
 
   return (
     <View style={[styles.container, { paddingTop: Math.max(insets.top, 15) }]}>
-      {/* Tap outside backdrop to close dropdown */}
-      {activeMenuId && (
-        <TouchableOpacity
-          style={styles.backdrop}
-          activeOpacity={1}
-          onPress={() => setActiveMenuId(null)}
-        />
-      )}
+
 
       {/* Header */}
       <View style={styles.header}>
@@ -170,6 +100,9 @@ export default function StaffMembersScreen() {
           <Text style={styles.headerTitle}>Staff Members</Text>
         </View>
         <View style={styles.headerRight}>
+          <TouchableOpacity style={styles.iconBtn} onPress={handleAddMember} activeOpacity={0.7}>
+            <Ionicons name="person-add-outline" size={22} color="#5C55FF" />
+          </TouchableOpacity>
           <TouchableOpacity style={styles.iconBtn} activeOpacity={0.7}>
             <Ionicons name="notifications" size={20} color="#FFB020" />
             <View style={styles.badge} />
@@ -203,13 +136,23 @@ export default function StaffMembersScreen() {
 
       {/* Members List */}
       <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
+        {activeMenuId && (
+          <TouchableOpacity
+            style={styles.backdrop}
+            activeOpacity={1}
+            onPress={() => setActiveMenuId(null)}
+          />
+        )}
         {filteredMembers.map((member) => (
           <View
             key={member.id}
             style={[
               styles.memberCard,
               member.isSuspended && styles.memberCardSuspended,
-              { zIndex: activeMenuId === member.id ? 100 : 1 },
+              { 
+                zIndex: activeMenuId === member.id ? 100 : 1,
+                elevation: activeMenuId === member.id ? 5 : 1,
+              },
             ]}
           >
             <View style={styles.memberInfo}>
@@ -306,7 +249,11 @@ const styles = StyleSheet.create({
     backgroundColor: "#F9FAFB",
   },
   backdrop: {
-    ...StyleSheet.absoluteFillObject,
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
     zIndex: 90,
   },
   header: {
@@ -390,6 +337,7 @@ const styles = StyleSheet.create({
   scrollContent: {
     padding: 16,
     paddingBottom: 100,
+    flexGrow: 1,
   },
   memberCard: {
     backgroundColor: "#FFFFFF",
@@ -490,7 +438,7 @@ const styles = StyleSheet.create({
   },
   fab: {
     position: "absolute",
-    bottom: 24,
+    bottom: 90,
     right: 24,
     width: 50,
     height: 50,
