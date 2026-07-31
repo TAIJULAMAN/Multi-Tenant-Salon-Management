@@ -25,7 +25,7 @@ export default function ReceiptsManagement() {
     <div className="space-y-6">
       {/* Header section */}
       <div className="bg-white p-5 sm:p-6 rounded-2xl border border-slate-100 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <h1 className="text-lg font-black text-slate-800 tracking-tight text-left">
+        <h1 className="text-lg font-semibold text-slate-800 tracking-tight text-left">
           Receipts
         </h1>
         <button className="flex items-center gap-2 bg-[#5c60f5] text-white text-xs font-bold px-4 py-2.5 rounded-xl hover:bg-[#4c50e0] shadow-sm transition-colors cursor-pointer w-fit">
@@ -33,11 +33,7 @@ export default function ReceiptsManagement() {
           <span>Export Receipts</span>
         </button>
       </div>
-
-      {/* KPI metrics row */}
       <ReceiptsKPICards />
-
-      {/* Table section list */}
       <ReceiptsTable
         onViewReceipt={(receipt) => {
           setSelectedReceipt(receipt);
