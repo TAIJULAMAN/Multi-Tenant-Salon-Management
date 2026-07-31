@@ -8,56 +8,49 @@ export default function ReceiptsKPICards() {
       title: "Total",
       value: `€ ${receiptsKpis.total}`,
       icon: Wallet,
-      gradient: "from-[#e6fcf5] to-[#c3fae8]/30 border-[#c3fae8]",
-      iconBg: "bg-[#0ca678]",
-      textColor: "text-[#0ca678]",
+      bgColor: "bg-gradient-to-b from-[#ecfdf5] to-white",
+      iconBgColor: "bg-[#22c55e]",
     },
     {
       title: "Media",
       value: `€ ${receiptsKpis.media}`,
       icon: BarChart3,
-      gradient: "from-[#f0f2ff] to-[#d0ebff]/30 border-[#d0ebff]",
-      iconBg: "bg-[#5c60f5]",
-      textColor: "text-[#5c60f5]",
+      bgColor: "bg-gradient-to-b from-[#eff6ff] to-white",
+      iconBgColor: "bg-[#3b82f6]",
     },
     {
       title: "Receipts",
       value: String(receiptsKpis.receiptsCount),
       icon: FileText,
-      gradient: "from-[#e6fcf5] to-[#c3fae8]/30 border-[#c3fae8]",
-      iconBg: "bg-[#0ca678]",
-      textColor: "text-[#0ca678]",
+      bgColor: "bg-gradient-to-b from-[#f5f3ff] to-white",
+      iconBgColor: "bg-[#8b5cf6]",
     },
     {
       title: "Unique Customers",
       value: String(receiptsKpis.uniqueCustomers),
       icon: Users,
-      gradient: "from-[#fff9db] to-[#fff3bf]/30 border-[#ffe066]",
-      iconBg: "bg-[#f59f00]",
-      textColor: "text-[#f59f00]",
+      bgColor: "bg-gradient-to-b from-[#fffbf0] to-white",
+      iconBgColor: "bg-[#facc15]",
     },
   ];
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
       {cards.map((card, idx) => {
         const Icon = card.icon;
         return (
           <div
             key={idx}
-            className={`bg-gradient-to-br ${card.gradient} border rounded-2xl p-5 flex items-center justify-between shadow-sm hover:-translate-y-1 transition-all duration-300 cursor-default`}
+            className={`${card.bgColor} rounded-2xl p-5 shadow-sm ring-1 ring-slate-100/50 flex flex-col justify-between`}
           >
-            <div className="space-y-2 text-left">
-              <span className="text-[13px] font-black text-slate-400 leading-none">
-                {card.title}
-              </span>
-              <h2 className="text-[38px] font-black text-slate-800 tracking-tight leading-none">
-                {card.value}
-              </h2>
+            <div className="flex items-center gap-3 mb-4">
+              <div className={`${card.iconBgColor} text-white w-9 h-9 rounded-[10px] flex items-center justify-center shrink-0 shadow-sm`}>
+                <Icon size={18} strokeWidth={2.5} />
+              </div>
+              <span className="text-[13px] font-semibold text-slate-700">{card.title}</span>
             </div>
-            <div className={`h-11 w-11 shrink-0 rounded-xl ${card.iconBg} text-white flex items-center justify-center shadow-sm`}>
-              <Icon size={20} />
-            </div>
+            <div className="text-xl font-semibold text-slate-800 mb-5">{card.value}</div>
+
           </div>
         );
       })}
