@@ -1,9 +1,12 @@
 "use client";
 
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import { Trash2, File as FileIcon } from "lucide-react";
-import Image from "next/image";
 import CustomSelect from "@/components/customComponent/CustomSelect";
+import CustomFileUpload from "@/components/customComponent/CustomFileUpload";
+import CustomTextarea from "@/components/customComponent/CustomTextarea";
+import CancelButton from "@/components/customComponent/CancelButton";
+import SubmitButton from "@/components/customComponent/SubmitButton";
 
 const TAX_TYPES = [
   "Select tax type",
@@ -21,40 +24,7 @@ export default function NewTaxUpload() {
   const [taxType, setTaxType] = useState("Select Tax Type");
 
   const [file, setFile] = useState<File | null>(null);
-  const [isDragging, setIsDragging] = useState(false);
   const [note, setNote] = useState("");
-
-  const fileInputRef = useRef<HTMLInputElement>(null);
-
-  const handleDragOver = (e: React.DragEvent) => {
-    e.preventDefault();
-    setIsDragging(true);
-  };
-
-  const handleDragLeave = (e: React.DragEvent) => {
-    e.preventDefault();
-    setIsDragging(false);
-  };
-
-  const handleDrop = (e: React.DragEvent) => {
-    e.preventDefault();
-    setIsDragging(false);
-
-    if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
-      const droppedFile = e.dataTransfer.files[0];
-      if (droppedFile.type === "application/pdf") {
-        setFile(droppedFile);
-      } else {
-        alert("Please upload a PDF file.");
-      }
-    }
-  };
-
-  const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files.length > 0) {
-      setFile(e.target.files[0]);
-    }
-  };
 
   const formatFileSize = (bytes: number) => {
     if (bytes === 0) return "0 Bytes";
@@ -68,7 +38,7 @@ export default function NewTaxUpload() {
     <div className="flex flex-col h-full space-y-6 pt-5 pb-10 mb-10">
       {/* Top Header */}
       <div>
-        <h2 className="text-xl font-bold text-slate-800 tracking-tight">
+        <h2 className="text-xl font-semibold text-slate-800 tracking-tight">
           New Tax Upload
         </h2>
       </div>
@@ -105,31 +75,17 @@ export default function NewTaxUpload() {
             </p>
           </div>
 
-          <div
-            onDragOver={handleDragOver}
-            onDragLeave={handleDragLeave}
-            onDrop={handleDrop}
-            onClick={() => fileInputRef.current?.click()}
-            className={`border-2 border-dashed ${isDragging ? "border-indigo-500 bg-indigo-50/50" : "border-indigo-200 bg-white"} rounded-xl p-8 flex flex-col items-center justify-center cursor-pointer transition-all w-full max-w-4xl mx-auto`}
-          >
-            <div className="mb-3">
-              <Image
-                src="/upload.png"
-                alt="Upload"
-                width={64}
-                height={64}
-                className="object-contain"
-              />
-            </div>
-            <span className="text-sm font-semibold text-indigo-500">
-              Drop here or click to browse
-            </span>
-            <input
-              type="file"
-              ref={fileInputRef}
-              onChange={handleFileSelect}
+          <div className="w-full max-w-4xl mx-auto">
+            <CustomFileUpload
+              label=""
               accept="application/pdf"
-              className="hidden"
+              onFileSelect={(f) => {
+                if (f.type === "application/pdf") {
+                  setFile(f);
+                } else {
+                  alert("Please upload a PDF file.");
+                }
+              }}
             />
           </div>
 
@@ -161,27 +117,20 @@ export default function NewTaxUpload() {
         {/* Note (Optional) Field - Shows when file is uploaded */}
         {file && (
           <div className="mt-8 relative z-0">
-            <label className="block text-xs font-bold text-slate-700 mb-2">
-              Note(Optional)
-            </label>
-            <textarea
+            <CustomTextarea
+              label="Note(Optional)"
               value={note}
-              onChange={(e) => setNote(e.target.value)}
+              onChange={setNote}
               placeholder="Add a note"
-              className="w-full bg-white border border-slate-200 rounded-lg p-4 text-sm text-slate-600 outline-none focus:border-indigo-500 transition-colors min-h-[120px] resize-y"
-            ></textarea>
+            />
           </div>
         )}
       </div>
 
       {/* Action Buttons Bottom Row */}
       <div className="flex items-center justify-between pt-2">
-        <button className="border border-indigo-200 text-indigo-500 hover:bg-indigo-50 px-6 py-2.5 rounded-lg text-sm font-bold transition-colors cursor-pointer bg-white">
-          Cancel
-        </button>
-        <button className="bg-indigo-500 hover:bg-indigo-600 text-white px-6 py-2.5 rounded-lg text-sm font-bold shadow-sm transition-colors cursor-pointer">
-          Send for Approval
-        </button>
+        <CancelButton>Cancel</CancelButton>
+        <SubmitButton>Send for Approval</SubmitButton>
       </div>
     </div>
   );

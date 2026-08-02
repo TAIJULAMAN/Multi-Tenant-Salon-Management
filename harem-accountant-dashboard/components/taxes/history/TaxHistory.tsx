@@ -2,11 +2,12 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import { Search, Download } from "lucide-react";
 import { taxHistoryData, TaxHistoryStatus } from "./data";
 import ExportModal from "@/components/modal/ExportModal";
 import Pagination from "@/components/customComponent/Pagination";
 import CustomSelect from "@/components/customComponent/CustomSelect";
+import CustomSearch from "@/components/customComponent/CustomSearch";
+import CustomExportButton from "@/components/customComponent/CustomExportButton";
 
 export default function TaxHistory() {
   const [activeTab, setActiveTab] = useState<"All" | TaxHistoryStatus>("All");
@@ -33,7 +34,7 @@ export default function TaxHistory() {
     <div className="flex flex-col space-y-6 pb-10">
       {/* Top Card */}
       <div className="bg-white rounded-xl shadow-sm ring-1 ring-slate-100 p-6 flex flex-col lg:flex-row lg:items-center justify-between gap-6 mb-6">
-        <h1 className="text-lg font-semibold text-slate-800 tracking-tight shrink-0">
+        <h1 className="text-xl font-semibold text-slate-800 tracking-tight shrink-0">
           Tax History
         </h1>
 
@@ -46,27 +47,18 @@ export default function TaxHistory() {
             />
           </div>
 
-          <div className="relative w-full sm:w-64">
-            <Search
-              className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
-              size={18}
-            />
-            <input
-              type="text"
-              placeholder="Search"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-2.5 border border-slate-200 rounded-lg text-[13px] font-medium outline-none focus:border-indigo-500 transition-colors bg-white text-slate-600 placeholder:text-slate-400"
-            />
-          </div>
+          <CustomSearch
+            value={searchQuery}
+            onChange={setSearchQuery}
+            className="w-full sm:w-64"
+          />
 
-          <button
+          <CustomExportButton
+            label="Export Report"
+            variant="solid"
             onClick={() => setIsExportModalOpen(true)}
-            className="flex items-center justify-center gap-2 bg-[#695dff] hover:bg-[#584cec] text-white px-5 py-2.5 rounded-lg text-[13px] font-semibold transition-colors shadow-sm cursor-pointer whitespace-nowrap shrink-0"
-          >
-            <Download size={16} strokeWidth={2.5} />
-            <span>Export Report</span>
-          </button>
+            className="whitespace-nowrap shrink-0"
+          />
         </div>
       </div>
 

@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
-import { Download } from "lucide-react";
 import YearSelect from "@/components/customComponent/YearSelect";
+import CustomExportButton from "@/components/customComponent/CustomExportButton";
 import ExportModal from "@/components/modal/ExportModal";
 import {
   payrollMonths,
@@ -70,13 +70,11 @@ export default function PayrollChart({ selectedSalon }: PayrollChartProps) {
             selectedYear={selectedYear}
             onYearChange={setSelectedYear}
           />
-          <button
+          <CustomExportButton
+            label="Export Data"
+            variant="outline"
             onClick={() => setIsExportOpen(true)}
-            className="flex items-center gap-1.5 border border-brand bg-white text-brand text-xs font-semibold px-3 py-1.5 rounded-lg transition-all shadow-sm cursor-pointer hover:bg-brand/5"
-          >
-            <Download size={12} />
-            <span>Export Data</span>
-          </button>
+          />
         </div>
       </div>
 

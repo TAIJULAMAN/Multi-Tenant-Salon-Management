@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
-import { Download } from "lucide-react";
 import Pagination from "@/components/customComponent/Pagination";
+import CustomExportButton from "@/components/customComponent/CustomExportButton";
 import CustomSearch from "@/components/customComponent/CustomSearch";
 import CustomSelect from "@/components/customComponent/CustomSelect";
 import ExportModal from "@/components/modal/ExportModal";
@@ -25,7 +25,9 @@ export default function SalaryHistoryTable() {
 
   const filteredData = salaryHistoryData.filter((item) => {
     const matchesTab = activeTab === "All" || item.status === activeTab;
-    const matchesSearch = item.name.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesSearch = item.name
+      .toLowerCase()
+      .includes(searchQuery.toLowerCase());
     return matchesTab && matchesSearch;
   });
 
@@ -39,7 +41,9 @@ export default function SalaryHistoryTable() {
     <div className="flex flex-col gap-6">
       <div className="bg-white rounded-xl border border-slate-100 shadow-sm p-6">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-          <h2 className="text-lg font-bold text-slate-800">Salary History</h2>
+          <h2 className="text-xl font-semibold text-slate-800">
+            Salary History
+          </h2>
 
           <div className="flex flex-col sm:flex-row sm:items-center gap-3">
             <CustomSearch
@@ -54,15 +58,12 @@ export default function SalaryHistoryTable() {
                 onChange={handleTabChange}
               />
             </div>
-
-            {/* Export Button */}
-            <button
+            <CustomExportButton
+              label="Export Data"
+              variant="outline"
               onClick={() => setIsExportOpen(true)}
-              className="bg-white text-brand border border-brand  px-4 py-2 rounded-lg text-xs font-bold flex items-center justify-center gap-2 transition-colors shadow-sm w-full sm:w-auto cursor-pointer"
-            >
-              <Download size={16} />
-              <span>Export Data</span>
-            </button>
+              className="w-full sm:w-auto"
+            />
           </div>
         </div>
       </div>

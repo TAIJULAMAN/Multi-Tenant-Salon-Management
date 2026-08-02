@@ -8,16 +8,21 @@ import {
   BarElement,
   Title,
   Tooltip,
+  TooltipItem,
+  ChartOptions,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
 import { CircleDollarSign, Briefcase, Percent } from "lucide-react";
 import YearSelect from "@/components/customComponent/YearSelect";
+import CustomExportButton from "@/components/customComponent/CustomExportButton";
+import ExportModal from "@/components/modal/ExportModal";
 import { averageReceiptTrendDataByYear } from "./data";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip);
 
 export default function AverageReceiptTrendChart() {
   const [selectedYear, setSelectedYear] = useState("2025");
+  const [isExportModalOpen, setIsExportModalOpen] = useState(false);
 
   const activeData =
     averageReceiptTrendDataByYear[selectedYear] ||
@@ -55,7 +60,7 @@ export default function AverageReceiptTrendChart() {
     ],
   };
 
-  const options = {
+  const options: ChartOptions<"bar"> = {
     responsive: true,
     maintainAspectRatio: false,
     interaction: {
@@ -78,7 +83,6 @@ export default function AverageReceiptTrendChart() {
       y: {
         grid: {
           color: "#f1f5f9",
-          drawBorder: false,
         },
         border: {
           display: false,
@@ -87,9 +91,9 @@ export default function AverageReceiptTrendChart() {
         ticks: {
           color: "#94a3b8",
           font: { size: 12, weight: 500 },
-          callback: function (value: any) {
-            if (value === 0) return "€0";
-            return `€${value / 1000}k`;
+          callback: function (value: string | number) {
+            if (value === 0 || value === "0") return "€0";
+            return `€${Number(value) / 1000}k`;
           },
         },
       },
@@ -105,11 +109,11 @@ export default function AverageReceiptTrendChart() {
         boxPadding: 6,
         usePointStyle: true,
         callbacks: {
-          title: (context: any) => {
+          title: (context: TooltipItem<"bar">[]) => {
             return `${context[0].label}, ${selectedYear}`;
           },
-          label: (context: any) => {
-            return `${context.dataset.label}: €${context.raw.toLocaleString()}`;
+          label: (context: TooltipItem<"bar">) => {
+            return `${context.dataset.label}: €${Number(context.raw).toLocaleString()}`;
           },
         },
       },
@@ -127,10 +131,17 @@ export default function AverageReceiptTrendChart() {
         <h3 className="text-base font-bold text-slate-800">
           Average Receipt Trend
         </h3>
-        <YearSelect
-          selectedYear={selectedYear}
-          onYearChange={setSelectedYear}
-        />
+        <div className="flex items-center gap-3">
+          <YearSelect
+            selectedYear={selectedYear}
+            onYearChange={setSelectedYear}
+          />
+          <CustomExportButton
+            label="Export Data"
+            variant="outline"
+            onClick={() => setIsExportModalOpen(true)}
+          />
+        </div>
       </div>
 
       <div className="flex flex-wrap items-center gap-8 mb-8">
@@ -176,7 +187,7 @@ export default function AverageReceiptTrendChart() {
       </div>
 
       <div className="h-[300px] w-full">
-        <Bar data={chartData} options={options as any} />
+        <Bar data={chartData} options={options} />
       </div>
 
       <div className="mt-6 flex items-center gap-6">
@@ -189,6 +200,12 @@ export default function AverageReceiptTrendChart() {
           <span className="text-xs font-bold text-slate-500">Taxes</span>
         </div>
       </div>
+
+      <ExportModal
+        isOpen={isExportModalOpen}
+        onClose={() => setIsExportModalOpen(false)}
+        title={`Average Receipt Trend Data - ${selectedYear}`}
+      />
     </div>
   );
 }
