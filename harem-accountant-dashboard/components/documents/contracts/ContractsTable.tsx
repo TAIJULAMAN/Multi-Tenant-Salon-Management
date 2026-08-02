@@ -6,7 +6,7 @@ import Pagination from "@/components/customComponent/Pagination";
 import { mockContracts, Contract } from "./data";
 import TerminateContractModal from "./TerminateContractModal";
 import ModifyContractModal from "./ModifyContractModal";
-import SuccessModal from "../employee-notices/SuccessModal";
+import SuccessModal from "@/components/modal/SuccessModal";
 import Image from "next/image";
 
 export default function ContractsTable() {
