@@ -2,12 +2,13 @@
 
 import React from "react";
 import { Doughnut } from "react-chartjs-2";
+import { ChartData, ChartOptions } from "chart.js";
 import CustomSelect from "@/components/customComponent/CustomSelect";
 
 interface DistributionDonutProps {
   title: string;
-  data: any;
-  options: any;
+  data: ChartData<"doughnut">;
+  options: ChartOptions<"doughnut">;
   filter: string;
   setFilter: (val: string) => void;
 }

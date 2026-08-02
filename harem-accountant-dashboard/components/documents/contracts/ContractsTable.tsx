@@ -241,7 +241,6 @@ Generated on: ${new Date().toLocaleDateString()}
           </table>
         </div>
 
-        {/* Footer / Pagination */}
         <Pagination
           currentPage={currentPage}
           totalPages={totalPages}

@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { Bar } from "react-chartjs-2";
+import { TooltipItem } from "chart.js";
 import CustomSelect from "@/components/customComponent/CustomSelect";
 import { getContractsData } from "./data";
 
@@ -25,7 +26,7 @@ export default function ContractsDistributionChart() {
         display: false,
       },
       tooltip: {
-        filter: (tooltipItem: any) => tooltipItem.datasetIndex === 0,
+        filter: (tooltipItem: TooltipItem<"bar">) => tooltipItem.datasetIndex === 0,
       },
     },
     scales: {
