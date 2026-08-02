@@ -3,7 +3,9 @@
 import React, { useEffect } from "react";
 import Image from "next/image";
 import { type SalonInfo } from "../../salons/data";
+import { TrendingUp } from "lucide-react";
 import CustomCloseButton from "../../customComponent/CustomCloseButton";
+import CustomAlert from "../../customComponent/CustomAlert";
 import SubmitButton from "../../customComponent/SubmitButton";
 import CompanyInformation from "./CompanyInformation";
 import OwnerContacts from "./OwnerContacts";
@@ -71,6 +73,10 @@ export default function ViewSalonModal({
             )}
             <h3 className="text-lg font-medium text-slate-800">{salon.name}</h3>
           </div>
+
+          <CustomAlert icon={TrendingUp}>
+            Salon Referred by You — You are earning 30% on this salon!
+          </CustomAlert>
 
           <CompanyInformation salon={salon} />
 

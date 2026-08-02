@@ -5,6 +5,7 @@ import { Info } from "lucide-react";
 import CustomSelect from "@/components/customComponent/CustomSelect";
 import CustomInput from "@/components/customComponent/CustomInput";
 import CustomTextarea from "@/components/customComponent/CustomTextarea";
+import CustomAlert from "@/components/customComponent/CustomAlert";
 import CancelButton from "@/components/customComponent/CancelButton";
 import SubmitButton from "@/components/customComponent/SubmitButton";
 import { useRouter } from "next/navigation";
@@ -66,13 +67,10 @@ export default function RequestAccess() {
           />
 
           {/* Info Banner */}
-          <div className="flex items-start gap-3 rounded-xl border border-brand/20 bg-brand/5 px-4 py-3">
-            <Info size={16} className="text-brand mt-0.5 shrink-0" />
-            <p className="text-xs text-brand leading-relaxed">
-              <span className="font-semibold">Note</span>{" "}
-              {`-- Your request will be sent to the salon owner for approval. You'll receive a notification once they respond.`}
-            </p>
-          </div>
+          <CustomAlert icon={Info}>
+            <span className="font-semibold">Note</span>{" "}
+            {`-- Your request will be sent to the salon owner for approval. You'll receive a notification once they respond.`}
+          </CustomAlert>
 
           {/* Actions */}
           <div className="flex items-center justify-between pt-1">

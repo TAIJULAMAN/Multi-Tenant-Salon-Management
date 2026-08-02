@@ -1,8 +1,9 @@
 "use client";
 
 import React, { useState } from "react";
-import { CheckCircle } from "lucide-react";
+import { CheckCircle, AlertCircle } from "lucide-react";
 import CustomInput from "../customComponent/CustomInput";
+import CustomAlert from "../customComponent/CustomAlert";
 import SubmitButton from "../customComponent/SubmitButton";
 
 export default function SettingsTab() {
@@ -13,6 +14,10 @@ export default function SettingsTab() {
 
   return (
     <div className="space-y-6 animate-in fade-in duration-300">
+      <CustomAlert icon={AlertCircle}>
+        Info — This information will be automatically used for all future payout requests. You can always change it when making a new request.
+      </CustomAlert>
+
       {/* Bank Details Card */}
       <div className="bg-white rounded-2xl shadow-sm border border-slate-100 p-6 sm:p-8">
         <h2 className="text-sm font-bold text-slate-800 mb-6">Bank Details</h2>

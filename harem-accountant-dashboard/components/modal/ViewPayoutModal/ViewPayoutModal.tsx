@@ -1,6 +1,13 @@
 import React from "react";
 import CustomCloseButton from "../../customComponent/CustomCloseButton";
-import { CircleDollarSign, FileText, Eye, Download } from "lucide-react";
+import CustomAlert from "../../customComponent/CustomAlert";
+import {
+  CircleDollarSign,
+  FileText,
+  Eye,
+  Download,
+  TrendingUp,
+} from "lucide-react";
 import { PayoutData } from "../../salons/payoutsData";
 
 interface ViewPayoutModalProps {
@@ -60,6 +67,13 @@ export default function ViewPayoutModal({
                 {payoutData.amount}
               </p>
             </div>
+          </div>
+
+          {/* Referral Alert */}
+          <div className="mb-6">
+            <CustomAlert icon={TrendingUp}>
+              Salon Referred by You — You are earning 30% on this salon!
+            </CustomAlert>
           </div>
 
           {/* Information Request */}
