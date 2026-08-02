@@ -13,8 +13,8 @@ import {
 } from "chart.js";
 import { Line } from "react-chartjs-2";
 import { taxObligationsDataByYear } from "./data";
-import YearSelect from "@/components/common/YearSelect";
-import ExportModal from "@/components/common/ExportModal";
+import YearSelect from "@/components/customComponent/YearSelect";
+import ExportModal from "@/components/modal/ExportModal";
 
 ChartJS.register(
   CategoryScale,
@@ -23,14 +23,15 @@ ChartJS.register(
   LineElement,
   Title,
   Tooltip,
-  Filler
+  Filler,
 );
 
 export default function TaxObligationsChart() {
   const [selectedYear, setSelectedYear] = useState("2025");
   const [isExportModalOpen, setIsExportModalOpen] = useState(false);
 
-  const activeData = taxObligationsDataByYear[selectedYear] || taxObligationsDataByYear["2025"];
+  const activeData =
+    taxObligationsDataByYear[selectedYear] || taxObligationsDataByYear["2025"];
 
   const chartData = {
     labels: activeData.map((d) => d.month),

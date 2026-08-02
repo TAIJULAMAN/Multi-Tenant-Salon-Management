@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { Plus, Eye } from "lucide-react";
-import Pagination from "@/components/common/Pagination";
+import Pagination from "@/components/customComponent/Pagination";
 import SendNoticeModal from "./SendNoticeModal";
 import SuccessModal from "./SuccessModal";
 import NoticeDetailsModal from "./NoticeDetailsModal";

@@ -1,8 +1,26 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { X, Bold, Italic, Strikethrough, Code, Link, Heading1, Heading2, AlignLeft, List, ListOrdered, Quote, Minus, AlignCenter, AlignRight, Undo, Redo } from "lucide-react";
-import CustomSelect from "@/components/common/CustomSelect";
+import {
+  X,
+  Bold,
+  Italic,
+  Strikethrough,
+  Code,
+  Link,
+  Heading1,
+  Heading2,
+  AlignLeft,
+  List,
+  ListOrdered,
+  Quote,
+  Minus,
+  AlignCenter,
+  AlignRight,
+  Undo,
+  Redo,
+} from "lucide-react";
+import CustomSelect from "@/components/customComponent/CustomSelect";
 import { employeeOptions } from "./data";
 
 interface SendNoticeModalProps {
@@ -11,7 +29,11 @@ interface SendNoticeModalProps {
   onSuccess: () => void;
 }
 
-export default function SendNoticeModal({ isOpen, onClose, onSuccess }: SendNoticeModalProps) {
+export default function SendNoticeModal({
+  isOpen,
+  onClose,
+  onSuccess,
+}: SendNoticeModalProps) {
   const [employee, setEmployee] = useState("Select Employee");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -42,14 +64,17 @@ export default function SendNoticeModal({ isOpen, onClose, onSuccess }: SendNoti
   };
 
   const ToolbarBtn = ({ icon: Icon }: { icon: any }) => (
-    <button type="button" className="p-1.5 text-slate-600 hover:bg-slate-200 rounded transition-colors cursor-pointer">
+    <button
+      type="button"
+      className="p-1.5 text-slate-600 hover:bg-slate-200 rounded transition-colors cursor-pointer"
+    >
       <Icon size={14} />
     </button>
   );
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-      <div 
+      <div
         onClick={onClose}
         className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm transition-opacity duration-300 animate-in fade-in"
       />
@@ -58,7 +83,7 @@ export default function SendNoticeModal({ isOpen, onClose, onSuccess }: SendNoti
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-5 border-b border-slate-100">
           <h3 className="text-base font-bold text-slate-800">Send Notice</h3>
-          <button 
+          <button
             onClick={onClose}
             className="p-1.5 rounded-full text-slate-400 hover:text-slate-600 hover:bg-slate-50 transition-all cursor-pointer"
           >
@@ -68,10 +93,16 @@ export default function SendNoticeModal({ isOpen, onClose, onSuccess }: SendNoti
 
         {/* Content */}
         <div className="p-6 overflow-y-auto">
-          <form id="sendNoticeForm" onSubmit={handleSubmit} className="space-y-6">
+          <form
+            id="sendNoticeForm"
+            onSubmit={handleSubmit}
+            className="space-y-6"
+          >
             {/* Employee Select */}
             <div>
-              <label className="block text-xs font-bold text-slate-700 mb-2">Select Employee *</label>
+              <label className="block text-xs font-bold text-slate-700 mb-2">
+                Select Employee *
+              </label>
               <CustomSelect
                 value={employee}
                 options={employeeOptions}
@@ -82,7 +113,9 @@ export default function SendNoticeModal({ isOpen, onClose, onSuccess }: SendNoti
 
             {/* Title */}
             <div>
-              <label className="block text-xs font-bold text-slate-700 mb-2">Title *</label>
+              <label className="block text-xs font-bold text-slate-700 mb-2">
+                Title *
+              </label>
               <input
                 type="text"
                 value={title}
@@ -95,7 +128,9 @@ export default function SendNoticeModal({ isOpen, onClose, onSuccess }: SendNoti
 
             {/* Description (Mocked RTE) */}
             <div>
-              <label className="block text-xs font-bold text-slate-700 mb-2">Description *</label>
+              <label className="block text-xs font-bold text-slate-700 mb-2">
+                Description *
+              </label>
               <div className="border border-slate-200 rounded-lg focus-within:border-[#6366f1] overflow-hidden transition-colors">
                 {/* Toolbar */}
                 <div className="flex flex-wrap items-center gap-1 p-2 border-b border-slate-200 bg-slate-50">

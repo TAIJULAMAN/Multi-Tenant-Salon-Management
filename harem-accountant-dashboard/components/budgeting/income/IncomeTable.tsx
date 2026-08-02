@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { Calculator, FileText, CreditCard } from "lucide-react";
-import Pagination from "@/components/common/Pagination";
+import Pagination from "@/components/customComponent/Pagination";
 import {
   initialCashierClosures,
   initialLatestReceipts,

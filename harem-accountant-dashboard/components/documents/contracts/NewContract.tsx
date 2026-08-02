@@ -4,12 +4,12 @@ import React, { useState, useRef } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Home, FileText } from "lucide-react";
-import CustomSelect from "@/components/common/CustomSelect";
+import CustomSelect from "@/components/customComponent/CustomSelect";
 import SuccessModal from "../employee-notices/SuccessModal";
 
 export default function NewContract() {
   const router = useRouter();
-  
+
   // Form State
   const [contractType, setContractType] = useState("Permanent");
   const [taxIdCode, setTaxIdCode] = useState("");
@@ -19,12 +19,12 @@ export default function NewContract() {
   const [remunerationType, setRemunerationType] = useState("Select type");
   const [salon, setSalon] = useState("Select Salon");
   const [taxType, setTaxType] = useState("Select Tax Type");
-  
+
   // File State
   const [file, setFile] = useState<File | null>(null);
   const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  
+
   // Modal State
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
 
@@ -72,19 +72,33 @@ export default function NewContract() {
           New Tax Upload
         </h1>
         <div className="flex items-center gap-2 text-[11px] font-bold text-slate-400">
-          <Link href="/documents" className="hover:text-[#6366f1] transition-colors"><Home size={14} /></Link>
+          <Link
+            href="/documents"
+            className="hover:text-[#6366f1] transition-colors"
+          >
+            <Home size={14} />
+          </Link>
           <span>/</span>
-          <Link href="/documents/contracts" className="bg-indigo-50 text-[#6366f1] px-3 py-1.5 rounded-lg transition-colors">Contract</Link>
+          <Link
+            href="/documents/contracts"
+            className="bg-indigo-50 text-[#6366f1] px-3 py-1.5 rounded-lg transition-colors"
+          >
+            Contract
+          </Link>
         </div>
       </div>
 
       {/* Form */}
-      <form onSubmit={handleSubmit} className="bg-white rounded-2xl shadow-sm ring-1 ring-slate-100 p-8">
-        
+      <form
+        onSubmit={handleSubmit}
+        className="bg-white rounded-2xl shadow-sm ring-1 ring-slate-100 p-8"
+      >
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-8 mb-8">
           {/* Contract Type */}
           <div>
-            <label className="block text-xs font-bold text-slate-700 mb-2">Contract Type *</label>
+            <label className="block text-xs font-bold text-slate-700 mb-2">
+              Contract Type *
+            </label>
             <CustomSelect
               value={contractType}
               options={["Permanent", "Temporary", "Freelance", "Internship"]}
@@ -94,7 +108,9 @@ export default function NewContract() {
 
           {/* Tax ID Code */}
           <div>
-            <label className="block text-xs font-bold text-slate-700 mb-2">Tax ID Code *</label>
+            <label className="block text-xs font-bold text-slate-700 mb-2">
+              Tax ID Code *
+            </label>
             <input
               type="text"
               value={taxIdCode}
@@ -107,7 +123,9 @@ export default function NewContract() {
 
           {/* IBAN */}
           <div className="md:col-span-2">
-            <label className="block text-xs font-bold text-slate-700 mb-2">IBAN</label>
+            <label className="block text-xs font-bold text-slate-700 mb-2">
+              IBAN
+            </label>
             <input
               type="text"
               value={iban}
@@ -119,7 +137,9 @@ export default function NewContract() {
 
           {/* Start Date */}
           <div className="md:col-span-2">
-            <label className="block text-xs font-bold text-slate-700 mb-2">Start Date *</label>
+            <label className="block text-xs font-bold text-slate-700 mb-2">
+              Start Date *
+            </label>
             <input
               type="text"
               value={startDate}
@@ -128,14 +148,19 @@ export default function NewContract() {
               className="w-full bg-white border border-slate-200 focus:border-[#6366f1] rounded-lg px-4 py-3 text-sm font-medium text-slate-700 outline-none transition-colors mb-2"
               required
             />
-            <button type="button" className="text-xs font-bold text-[#6366f1] hover:underline cursor-pointer">
+            <button
+              type="button"
+              className="text-xs font-bold text-[#6366f1] hover:underline cursor-pointer"
+            >
               Set an end date
             </button>
           </div>
 
           {/* Role */}
           <div className="md:col-span-2">
-            <label className="block text-xs font-bold text-slate-700 mb-2">Role *</label>
+            <label className="block text-xs font-bold text-slate-700 mb-2">
+              Role *
+            </label>
             <CustomSelect
               value={role}
               options={["Hair Stylist", "Colorist", "Receptionist", "Manager"]}
@@ -146,7 +171,9 @@ export default function NewContract() {
 
           {/* Remuneration Type */}
           <div className="md:col-span-2">
-            <label className="block text-xs font-bold text-slate-700 mb-2">Remuneration Type *</label>
+            <label className="block text-xs font-bold text-slate-700 mb-2">
+              Remuneration Type *
+            </label>
             <CustomSelect
               value={remunerationType}
               options={["Fixed Salary", "Hourly", "Commission Base"]}
@@ -157,7 +184,9 @@ export default function NewContract() {
 
           {/* Salon */}
           <div>
-            <label className="block text-xs font-bold text-slate-700 mb-2">Salon *</label>
+            <label className="block text-xs font-bold text-slate-700 mb-2">
+              Salon *
+            </label>
             <CustomSelect
               value={salon}
               options={["Chic Hair & Beauty", "Style Studio", "Elegance Spa"]}
@@ -168,7 +197,9 @@ export default function NewContract() {
 
           {/* Tax Type */}
           <div>
-            <label className="block text-xs font-bold text-slate-700 mb-2">Tax Type *</label>
+            <label className="block text-xs font-bold text-slate-700 mb-2">
+              Tax Type *
+            </label>
             <CustomSelect
               value={taxType}
               options={["Standard", "Reduced", "Exempt"]}
@@ -180,8 +211,10 @@ export default function NewContract() {
 
         {/* Drag and Drop Zone */}
         <div className="mb-8">
-          <label className="block text-xs font-bold text-slate-700 mb-2">Document *</label>
-          <div 
+          <label className="block text-xs font-bold text-slate-700 mb-2">
+            Document *
+          </label>
+          <div
             onClick={() => fileInputRef.current?.click()}
             onDragOver={handleDragOver}
             onDragLeave={handleDragLeave}
@@ -190,11 +223,11 @@ export default function NewContract() {
               ${isDragging ? "border-[#6366f1] bg-[#e0e7ff]/30" : "border-[#e0e7ff] hover:border-[#6366f1] bg-slate-50/50 hover:bg-[#e0e7ff]/30"}
             `}
           >
-            <input 
-              type="file" 
-              ref={fileInputRef} 
-              onChange={handleFileChange} 
-              className="hidden" 
+            <input
+              type="file"
+              ref={fileInputRef}
+              onChange={handleFileChange}
+              className="hidden"
               accept=".pdf,.doc,.docx,.txt"
             />
             {file ? (
@@ -202,11 +235,18 @@ export default function NewContract() {
                 <div className="w-16 h-16 bg-[#e0e7ff] text-[#6366f1] rounded-xl flex items-center justify-center mb-4">
                   <FileText size={32} />
                 </div>
-                <span className="text-sm font-bold text-slate-800 mb-1">{file.name}</span>
-                <span className="text-xs font-medium text-slate-500">{(file.size / 1024 / 1024).toFixed(2)} MB</span>
-                <button 
+                <span className="text-sm font-bold text-slate-800 mb-1">
+                  {file.name}
+                </span>
+                <span className="text-xs font-medium text-slate-500">
+                  {(file.size / 1024 / 1024).toFixed(2)} MB
+                </span>
+                <button
                   type="button"
-                  onClick={(e) => { e.stopPropagation(); setFile(null); }}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setFile(null);
+                  }}
                   className="mt-4 text-xs font-bold text-red-500 hover:text-red-600 px-3 py-1.5 bg-red-50 rounded-lg"
                 >
                   Remove File
@@ -215,9 +255,15 @@ export default function NewContract() {
             ) : (
               <>
                 <div className="flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                  <img src="/upload.png" alt="Upload Icon" className="w-16 h-16 object-contain" />
+                  <img
+                    src="/upload.png"
+                    alt="Upload Icon"
+                    className="w-16 h-16 object-contain"
+                  />
                 </div>
-                <span className="text-sm font-bold text-[#6366f1]">Drop here or click to browse</span>
+                <span className="text-sm font-bold text-[#6366f1]">
+                  Drop here or click to browse
+                </span>
               </>
             )}
           </div>

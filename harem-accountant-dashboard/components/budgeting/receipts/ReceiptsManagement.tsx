@@ -7,7 +7,9 @@ import { ReceiptItem } from "./data";
 
 export default function ReceiptsManagement() {
   const [activeView, setActiveView] = useState<"list" | "detail">("list");
-  const [selectedReceipt, setSelectedReceipt] = useState<ReceiptItem | null>(null);
+  const [selectedReceipt, setSelectedReceipt] = useState<ReceiptItem | null>(
+    null,
+  );
 
   if (activeView === "detail" && selectedReceipt) {
     return (
@@ -28,7 +30,7 @@ export default function ReceiptsManagement() {
         <h1 className="text-lg font-semibold text-slate-800 tracking-tight text-left">
           Receipts
         </h1>
-        <button className="flex items-center gap-2 bg-[#5c60f5] text-white text-xs font-bold px-4 py-2.5 rounded-xl hover:bg-[#4c50e0] shadow-sm transition-colors cursor-pointer w-fit">
+        <button className="flex items-center gap-2 bg-[#5c60f5] text-white text-xs font-semibold px-4 py-2.5 rounded-xl hover:bg-[#4c50e0] shadow-sm transition-colors cursor-pointer w-fit">
           <Download size={14} />
           <span>Export Receipts</span>
         </button>

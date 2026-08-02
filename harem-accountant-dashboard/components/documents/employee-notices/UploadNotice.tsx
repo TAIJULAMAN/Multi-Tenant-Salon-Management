@@ -4,7 +4,7 @@ import React, { useState, useRef } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Home, FileText } from "lucide-react";
-import CustomSelect from "@/components/common/CustomSelect";
+import CustomSelect from "@/components/customComponent/CustomSelect";
 import { employeeOptions } from "./data";
 import SuccessModal from "./SuccessModal";
 
@@ -63,18 +63,32 @@ export default function UploadNotice() {
           Upload Notice
         </h1>
         <div className="flex items-center gap-2 text-[11px] font-bold text-slate-400">
-          <Link href="/documents" className="hover:text-[#6366f1] transition-colors"><Home size={14} /></Link>
+          <Link
+            href="/documents"
+            className="hover:text-[#6366f1] transition-colors"
+          >
+            <Home size={14} />
+          </Link>
           <span>/</span>
-          <Link href="/documents/employee-notices" className="bg-indigo-50 text-[#6366f1] px-3 py-1.5 rounded-lg transition-colors">Employee Notices</Link>
+          <Link
+            href="/documents/employee-notices"
+            className="bg-indigo-50 text-[#6366f1] px-3 py-1.5 rounded-lg transition-colors"
+          >
+            Employee Notices
+          </Link>
         </div>
       </div>
 
       {/* Form */}
-      <form onSubmit={handleSubmit} className="bg-white rounded-2xl shadow-sm ring-1 ring-slate-100 p-8 space-y-8">
-        
+      <form
+        onSubmit={handleSubmit}
+        className="bg-white rounded-2xl shadow-sm ring-1 ring-slate-100 p-8 space-y-8"
+      >
         {/* Title Input */}
         <div>
-          <label className="block text-xs font-bold text-slate-700 mb-2">Title *</label>
+          <label className="block text-xs font-bold text-slate-700 mb-2">
+            Title *
+          </label>
           <input
             type="text"
             value={title}
@@ -87,7 +101,9 @@ export default function UploadNotice() {
 
         {/* Employee Select */}
         <div>
-          <label className="block text-xs font-bold text-slate-700 mb-2">Select Employee *</label>
+          <label className="block text-xs font-bold text-slate-700 mb-2">
+            Select Employee *
+          </label>
           <CustomSelect
             value={employee}
             options={employeeOptions}
@@ -98,8 +114,10 @@ export default function UploadNotice() {
 
         {/* Drag and Drop Zone */}
         <div>
-          <label className="block text-xs font-bold text-slate-700 mb-2">Document *</label>
-          <div 
+          <label className="block text-xs font-bold text-slate-700 mb-2">
+            Document *
+          </label>
+          <div
             onClick={() => fileInputRef.current?.click()}
             onDragOver={handleDragOver}
             onDragLeave={handleDragLeave}
@@ -108,11 +126,11 @@ export default function UploadNotice() {
               ${isDragging ? "border-[#6366f1] bg-[#e0e7ff]/30" : "border-[#e0e7ff] hover:border-[#6366f1] bg-slate-50/50 hover:bg-[#e0e7ff]/30"}
             `}
           >
-            <input 
-              type="file" 
-              ref={fileInputRef} 
-              onChange={handleFileChange} 
-              className="hidden" 
+            <input
+              type="file"
+              ref={fileInputRef}
+              onChange={handleFileChange}
+              className="hidden"
               accept=".pdf,.doc,.docx,.txt"
             />
             {file ? (
@@ -120,11 +138,18 @@ export default function UploadNotice() {
                 <div className="w-16 h-16 bg-[#e0e7ff] text-[#6366f1] rounded-xl flex items-center justify-center mb-4">
                   <FileText size={32} />
                 </div>
-                <span className="text-sm font-bold text-slate-800 mb-1">{file.name}</span>
-                <span className="text-xs font-medium text-slate-500">{(file.size / 1024 / 1024).toFixed(2)} MB</span>
-                <button 
+                <span className="text-sm font-bold text-slate-800 mb-1">
+                  {file.name}
+                </span>
+                <span className="text-xs font-medium text-slate-500">
+                  {(file.size / 1024 / 1024).toFixed(2)} MB
+                </span>
+                <button
                   type="button"
-                  onClick={(e) => { e.stopPropagation(); setFile(null); }}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setFile(null);
+                  }}
                   className="mt-4 text-xs font-bold text-red-500 hover:text-red-600 px-3 py-1.5 bg-red-50 rounded-lg"
                 >
                   Remove File
@@ -133,9 +158,15 @@ export default function UploadNotice() {
             ) : (
               <>
                 <div className="flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                  <img src="/upload.png" alt="Upload Icon" className="w-16 h-16 object-contain" />
+                  <img
+                    src="/upload.png"
+                    alt="Upload Icon"
+                    className="w-16 h-16 object-contain"
+                  />
                 </div>
-                <span className="text-sm font-bold text-[#6366f1]">Drop here or click to browse</span>
+                <span className="text-sm font-bold text-[#6366f1]">
+                  Drop here or click to browse
+                </span>
               </>
             )}
           </div>
@@ -158,10 +189,7 @@ export default function UploadNotice() {
         </div>
       </form>
 
-      <SuccessModal
-        isOpen={isSuccessModalOpen}
-        onClose={handleSuccessClose}
-      />
+      <SuccessModal isOpen={isSuccessModalOpen} onClose={handleSuccessClose} />
     </div>
   );
 }

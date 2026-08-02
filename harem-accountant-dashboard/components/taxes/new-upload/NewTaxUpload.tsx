@@ -3,7 +3,7 @@
 import React, { useState, useRef } from "react";
 import { Trash2, File as FileIcon } from "lucide-react";
 import Image from "next/image";
-import CustomSelect from "@/components/common/CustomSelect";
+import CustomSelect from "@/components/customComponent/CustomSelect";
 
 const TAX_TYPES = [
   "Select tax type",
@@ -11,14 +11,10 @@ const TAX_TYPES = [
   "Income Tax",
   "Social Security",
   "Property Tax",
-  "Other"
+  "Other",
 ];
 
-const SALONS = [
-  "Select Salon",
-  "Salon 1",
-  "Salon 2"
-];
+const SALONS = ["Select Salon", "Salon 1", "Salon 2"];
 
 export default function NewTaxUpload() {
   const [salon, setSalon] = useState("Select Salon");
@@ -72,15 +68,15 @@ export default function NewTaxUpload() {
     <div className="flex flex-col h-full space-y-6 pt-5 pb-10 mb-10">
       {/* Top Header */}
       <div>
-        <h2 className="text-xl font-bold text-slate-800 tracking-tight">New Tax Upload</h2>
+        <h2 className="text-xl font-bold text-slate-800 tracking-tight">
+          New Tax Upload
+        </h2>
       </div>
 
       {/* Main Form Card */}
       <div className="bg-white rounded-xl shadow-sm ring-1 ring-slate-100 p-6 sm:p-8">
-
         {/* Dropdowns Row */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10 relative z-10">
-
           <CustomSelect
             label="Salon *"
             value={salon}
@@ -101,8 +97,12 @@ export default function NewTaxUpload() {
         {/* Dropzone Container */}
         <div className="mb-6 relative z-0">
           <div className="flex flex-col items-center justify-center text-center mb-6">
-            <h3 className="text-lg font-semibold text-slate-800 mb-1">Drop Tax Document</h3>
-            <p className="text-[13px] text-slate-400 font-medium">You can upload multiple employees in one PDF file</p>
+            <h3 className="text-lg font-semibold text-slate-800 mb-1">
+              Drop Tax Document
+            </h3>
+            <p className="text-[13px] text-slate-400 font-medium">
+              You can upload multiple employees in one PDF file
+            </p>
           </div>
 
           <div
@@ -110,12 +110,20 @@ export default function NewTaxUpload() {
             onDragLeave={handleDragLeave}
             onDrop={handleDrop}
             onClick={() => fileInputRef.current?.click()}
-            className={`border-2 border-dashed ${isDragging ? 'border-indigo-500 bg-indigo-50/50' : 'border-indigo-200 bg-white'} rounded-xl p-8 flex flex-col items-center justify-center cursor-pointer transition-all w-full max-w-4xl mx-auto`}
+            className={`border-2 border-dashed ${isDragging ? "border-indigo-500 bg-indigo-50/50" : "border-indigo-200 bg-white"} rounded-xl p-8 flex flex-col items-center justify-center cursor-pointer transition-all w-full max-w-4xl mx-auto`}
           >
             <div className="mb-3">
-              <Image src="/upload.png" alt="Upload" width={64} height={64} className="object-contain" />
+              <Image
+                src="/upload.png"
+                alt="Upload"
+                width={64}
+                height={64}
+                className="object-contain"
+              />
             </div>
-            <span className="text-sm font-semibold text-indigo-500">Drop here or click to browse</span>
+            <span className="text-sm font-semibold text-indigo-500">
+              Drop here or click to browse
+            </span>
             <input
               type="file"
               ref={fileInputRef}
@@ -132,8 +140,12 @@ export default function NewTaxUpload() {
                   <FileIcon size={24} strokeWidth={1.5} />
                 </div>
                 <div className="flex flex-col">
-                  <span className="text-sm font-semibold text-indigo-500">{file.name}</span>
-                  <span className="text-xs font-medium text-slate-400">{formatFileSize(file.size)}</span>
+                  <span className="text-sm font-semibold text-indigo-500">
+                    {file.name}
+                  </span>
+                  <span className="text-xs font-medium text-slate-400">
+                    {formatFileSize(file.size)}
+                  </span>
                 </div>
               </div>
               <button
@@ -149,7 +161,9 @@ export default function NewTaxUpload() {
         {/* Note (Optional) Field - Shows when file is uploaded */}
         {file && (
           <div className="mt-8 relative z-0">
-            <label className="block text-xs font-bold text-slate-700 mb-2">Note(Optional)</label>
+            <label className="block text-xs font-bold text-slate-700 mb-2">
+              Note(Optional)
+            </label>
             <textarea
               value={note}
               onChange={(e) => setNote(e.target.value)}
@@ -158,7 +172,6 @@ export default function NewTaxUpload() {
             ></textarea>
           </div>
         )}
-
       </div>
 
       {/* Action Buttons Bottom Row */}
@@ -170,7 +183,6 @@ export default function NewTaxUpload() {
           Send for Approval
         </button>
       </div>
-
     </div>
   );
 }

@@ -2,8 +2,8 @@
 
 import React, { useState } from "react";
 import { Download } from "lucide-react";
-import YearSelect from "@/components/common/YearSelect";
-import ExportModal from "@/components/common/ExportModal";
+import YearSelect from "@/components/customComponent/YearSelect";
+import ExportModal from "@/components/modal/ExportModal";
 import {
   distributionBrackets,
   getDistributionData,

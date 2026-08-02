@@ -10,7 +10,7 @@ import {
   Trash2,
   ChevronDown,
 } from "lucide-react";
-import Pagination from "@/components/common/Pagination";
+import Pagination from "@/components/customComponent/Pagination";
 import { pendingSalariesData, PendingSalaryRecord } from "./data";
 import DeleteConfirmationModal from "./DeleteConfirmationModal";
 import SuccessModal from "./SuccessModal";

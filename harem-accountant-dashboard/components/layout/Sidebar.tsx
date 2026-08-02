@@ -23,6 +23,10 @@ import {
   Receipt,
 } from "lucide-react";
 import Image from "next/image";
+import SalonsInvitationsNavlinkIcon from "../icons/SalonsInvitationsNavlinkIcon";
+import PendingInvitationsNavlinkIcon from "../icons/PendingInvitationsNavlinkIcon";
+import RequestAccessNavlinkIcon from "../icons/RequestAccessNavlinkIcon";
+
 
 interface SidebarProps {
   isOpen: boolean;
@@ -38,6 +42,7 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
     if (pathname.startsWith("/taxes")) return "Taxes & Compliance";
     if (pathname.startsWith("/documents")) return "Documents";
     if (pathname.startsWith("/budgeting")) return "Budgeting & Finances";
+    if (pathname.startsWith("/salons")) return "Salons & Invitations";
     return null;
   });
 
@@ -52,7 +57,9 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
             ? "Documents"
             : pathname.startsWith("/budgeting")
               ? "Budgeting & Finances"
-              : null
+              : pathname.startsWith("/salons")
+                ? "Salons & Invitations"
+                : null,
     );
   }
 
@@ -67,48 +74,162 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
       icon: HandCoins,
       hasDropdown: true,
       subItems: [
-        { name: "Overview", icon: LineChart, path: "/salaries/overview", id: "Salaries-Overview" },
-        { name: "New Upload", icon: Upload, path: "/salaries/upload", id: "Salaries-Upload" },
-        { name: "Pending & Declined", icon: Clipboard, path: "/salaries/pending", id: "Salaries-Pending" },
-        { name: "History", icon: History, path: "/salaries/history", id: "Salaries-History" },
-      ]
+        {
+          name: "Overview",
+          icon: LineChart,
+          path: "/salaries/overview",
+          id: "Salaries-Overview",
+        },
+        {
+          name: "New Upload",
+          icon: Upload,
+          path: "/salaries/upload",
+          id: "Salaries-Upload",
+        },
+        {
+          name: "Pending & Declined",
+          icon: Clipboard,
+          path: "/salaries/pending",
+          id: "Salaries-Pending",
+        },
+        {
+          name: "History",
+          icon: History,
+          path: "/salaries/history",
+          id: "Salaries-History",
+        },
+      ],
     },
     {
       name: "Taxes & Compliance",
       icon: ShieldCheck,
       hasDropdown: true,
       subItems: [
-        { name: "Overview", icon: LineChart, path: "/taxes/overview", id: "Taxes-Overview" },
-        { name: "New Upload", icon: Upload, path: "/taxes/new-upload", id: "Taxes-Upload" },
-        { name: "Pending & Declined", icon: Clipboard, path: "/taxes/pending", id: "Taxes-Pending" },
-        { name: "History", icon: History, path: "/taxes/history", id: "Taxes-History" },
-      ]
+        {
+          name: "Overview",
+          icon: LineChart,
+          path: "/taxes/overview",
+          id: "Taxes-Overview",
+        },
+        {
+          name: "New Upload",
+          icon: Upload,
+          path: "/taxes/new-upload",
+          id: "Taxes-Upload",
+        },
+        {
+          name: "Pending & Declined",
+          icon: Clipboard,
+          path: "/taxes/pending",
+          id: "Taxes-Pending",
+        },
+        {
+          name: "History",
+          icon: History,
+          path: "/taxes/history",
+          id: "Taxes-History",
+        },
+      ],
     },
     {
       name: "Documents",
       icon: FileText,
       hasDropdown: true,
       subItems: [
-        { name: "Overview", icon: LineChart, path: "/documents/overview", id: "Documents-Overview" },
-        { name: "New Upload", icon: Upload, path: "/documents/new-upload", id: "Documents-Upload" },
-        { name: "Employee Notices", icon: Users, path: "/documents/employee-notices", id: "Documents-EmployeeNotices" },
-        { name: "Contracts", icon: FileText, path: "/documents/contracts", id: "Documents-Contracts" },
-        { name: "Owner Documents", icon: FileSignature, path: "/documents/owner-documents", id: "Documents-OwnerDocuments" },
-      ]
+        {
+          name: "Overview",
+          icon: LineChart,
+          path: "/documents/overview",
+          id: "Documents-Overview",
+        },
+        {
+          name: "New Upload",
+          icon: Upload,
+          path: "/documents/new-upload",
+          id: "Documents-Upload",
+        },
+        {
+          name: "Employee Notices",
+          icon: Users,
+          path: "/documents/employee-notices",
+          id: "Documents-EmployeeNotices",
+        },
+        {
+          name: "Contracts",
+          icon: FileText,
+          path: "/documents/contracts",
+          id: "Documents-Contracts",
+        },
+        {
+          name: "Owner Documents",
+          icon: FileSignature,
+          path: "/documents/owner-documents",
+          id: "Documents-OwnerDocuments",
+        },
+      ],
     },
     {
       name: "Budgeting & Finances",
       icon: Wallet,
       hasDropdown: true,
       subItems: [
-        { name: "Overview", icon: LineChart, path: "/budgeting/overview", id: "Budgeting-Overview" },
-        { name: "Expense Management", icon: Wallet, path: "/budgeting/expense", id: "Budgeting-Expense" },
-        { name: "Income & Revenue", icon: DollarSign, path: "/budgeting/income", id: "Budgeting-Income" },
-        { name: "Payments", icon: CreditCard, path: "/budgeting/payments", id: "Budgeting-Payments" },
-        { name: "Receipts", icon: Receipt, path: "/budgeting/receipts", id: "Budgeting-Receipts" },
-      ]
+        {
+          name: "Overview",
+          icon: LineChart,
+          path: "/budgeting/overview",
+          id: "Budgeting-Overview",
+        },
+        {
+          name: "Expense Management",
+          icon: Wallet,
+          path: "/budgeting/expense",
+          id: "Budgeting-Expense",
+        },
+        {
+          name: "Income & Revenue",
+          icon: DollarSign,
+          path: "/budgeting/income",
+          id: "Budgeting-Income",
+        },
+        {
+          name: "Payments",
+          icon: CreditCard,
+          path: "/budgeting/payments",
+          id: "Budgeting-Payments",
+        },
+        {
+          name: "Receipts",
+          icon: Receipt,
+          path: "/budgeting/receipts",
+          id: "Budgeting-Receipts",
+        },
+      ],
     },
-    { name: "Salons & Invitations", icon: Store, hasDropdown: true },
+    {
+      name: "Salons & Invitations",
+      icon: SalonsInvitationsNavlinkIcon,
+      hasDropdown: true,
+      subItems: [
+        {
+          name: "My Salons",
+          icon: Store,
+          path: "/salons/my-salons",
+          id: "Salons-MySalons",
+        },
+        {
+          name: "Pending Invitations",
+          icon: PendingInvitationsNavlinkIcon,
+          path: "/salons/pending-invitations",
+          id: "Salons-PendingInvitations",
+        },
+        {
+          name: "Request Access",
+          icon: RequestAccessNavlinkIcon,
+          path: "/salons/request-access",
+          id: "Salons-RequestAccess",
+        },
+      ],
+    },
   ];
 
   return (
@@ -191,7 +312,9 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
                         <ChevronRight
                           size={14}
                           className={`${
-                            isParentActive || isExpanded ? "text-brand" : "text-slate-400"
+                            isParentActive || isExpanded
+                              ? "text-brand"
+                              : "text-slate-400"
                           } transition-transform duration-200 ${isExpanded ? "rotate-90" : ""}`}
                         />
                       </button>

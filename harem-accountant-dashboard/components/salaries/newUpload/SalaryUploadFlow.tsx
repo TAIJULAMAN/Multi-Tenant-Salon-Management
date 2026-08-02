@@ -16,7 +16,7 @@ import { ExtractedSalary, mockSalaries } from "./data";
 import SalaryUploadSteps from "./SalaryUploadSteps";
 import SalaryUploadStep1 from "./SalaryUploadStep1";
 import SalaryUploadStep2 from "./SalaryUploadStep2";
-import Pagination from "@/components/common/Pagination";
+import Pagination from "@/components/customComponent/Pagination";
 import Image from "next/image";
 
 export default function SalaryUploadFlow() {

@@ -11,7 +11,7 @@ import {
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
 import { CircleDollarSign, Briefcase, Percent } from "lucide-react";
-import YearSelect from "@/components/common/YearSelect";
+import YearSelect from "@/components/customComponent/YearSelect";
 import { averageReceiptTrendDataByYear } from "./data";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip);
@@ -19,7 +19,9 @@ ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip);
 export default function AverageReceiptTrendChart() {
   const [selectedYear, setSelectedYear] = useState("2025");
 
-  const activeData = averageReceiptTrendDataByYear[selectedYear] || averageReceiptTrendDataByYear["2025"];
+  const activeData =
+    averageReceiptTrendDataByYear[selectedYear] ||
+    averageReceiptTrendDataByYear["2025"];
 
   const chartData = {
     labels: activeData.map((d) => d.month),
@@ -28,7 +30,12 @@ export default function AverageReceiptTrendChart() {
         label: "Revenue",
         data: activeData.map((d) => d.revenue),
         backgroundColor: "#22c55e",
-        borderRadius: { topLeft: 4, topRight: 4, bottomLeft: 0, bottomRight: 0 },
+        borderRadius: {
+          topLeft: 4,
+          topRight: 4,
+          bottomLeft: 0,
+          bottomRight: 0,
+        },
         barPercentage: 0.6,
         categoryPercentage: 0.5,
       },
@@ -36,7 +43,12 @@ export default function AverageReceiptTrendChart() {
         label: "Taxes",
         data: activeData.map((d) => d.taxes),
         backgroundColor: "#eab308",
-        borderRadius: { topLeft: 4, topRight: 4, bottomLeft: 0, bottomRight: 0 },
+        borderRadius: {
+          topLeft: 4,
+          topRight: 4,
+          bottomLeft: 0,
+          bottomRight: 0,
+        },
         barPercentage: 0.6,
         categoryPercentage: 0.5,
       },
@@ -106,7 +118,8 @@ export default function AverageReceiptTrendChart() {
 
   const totalRevenue = activeData.reduce((sum, d) => sum + d.revenue, 0);
   const totalTaxes = activeData.reduce((sum, d) => sum + d.taxes, 0);
-  const avgTaxPercent = totalRevenue > 0 ? Math.round((totalTaxes / totalRevenue) * 100) : 0;
+  const avgTaxPercent =
+    totalRevenue > 0 ? Math.round((totalTaxes / totalRevenue) * 100) : 0;
 
   return (
     <div className="flex flex-col rounded-xl bg-white p-6 shadow-sm ring-1 ring-slate-100 mt-6">
@@ -126,8 +139,12 @@ export default function AverageReceiptTrendChart() {
             <CircleDollarSign size={20} />
           </div>
           <div>
-            <h4 className="text-sm font-bold text-slate-800">€ {totalRevenue.toLocaleString()}</h4>
-            <span className="text-xs font-semibold text-slate-400">Revenue</span>
+            <h4 className="text-sm font-bold text-slate-800">
+              € {totalRevenue.toLocaleString()}
+            </h4>
+            <span className="text-xs font-semibold text-slate-400">
+              Revenue
+            </span>
           </div>
         </div>
 
@@ -136,7 +153,9 @@ export default function AverageReceiptTrendChart() {
             <Briefcase size={20} />
           </div>
           <div>
-            <h4 className="text-sm font-bold text-slate-800">€ {totalTaxes.toLocaleString()}</h4>
+            <h4 className="text-sm font-bold text-slate-800">
+              € {totalTaxes.toLocaleString()}
+            </h4>
             <span className="text-xs font-semibold text-slate-400">Taxes</span>
           </div>
         </div>
@@ -146,8 +165,12 @@ export default function AverageReceiptTrendChart() {
             <Percent size={20} />
           </div>
           <div>
-            <h4 className="text-sm font-bold text-slate-800">{avgTaxPercent}%</h4>
-            <span className="text-xs font-semibold text-slate-400">Avg. Tax %</span>
+            <h4 className="text-sm font-bold text-slate-800">
+              {avgTaxPercent}%
+            </h4>
+            <span className="text-xs font-semibold text-slate-400">
+              Avg. Tax %
+            </span>
           </div>
         </div>
       </div>

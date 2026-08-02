@@ -11,13 +11,22 @@ interface CustomSelectProps {
   placeholder?: string;
 }
 
-export default function CustomSelect({ label, value, options, onChange, placeholder }: CustomSelectProps) {
+export default function CustomSelect({
+  label,
+  value,
+  options,
+  onChange,
+  placeholder,
+}: CustomSelectProps) {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
         setIsOpen(false);
       }
     }
@@ -31,15 +40,20 @@ export default function CustomSelect({ label, value, options, onChange, placehol
 
   return (
     <div className="flex flex-col gap-2" ref={dropdownRef}>
-      {label && <label className="text-sm font-semibold text-slate-700">{label}</label>}
+      {label && (
+        <label className="text-sm font-semibold text-slate-700">{label}</label>
+      )}
       <div className="relative">
         <button
           type="button"
           onClick={() => setIsOpen(!isOpen)}
-          className={`w-full flex items-center justify-between bg-white border ${isOpen ? 'border-indigo-500 ring-1 ring-indigo-500' : 'border-slate-200'} rounded-lg px-4 py-3 text-sm ${isPlaceholder ? 'text-slate-400' : 'text-slate-700'} font-medium outline-none cursor-pointer transition-colors`}
+          className={`w-full flex items-center justify-between bg-white border ${isOpen ? "border-indigo-500 ring-1 ring-indigo-500" : "border-slate-200"} rounded-lg px-4 py-2 text-sm ${isPlaceholder ? "text-slate-400" : "text-slate-700"} font-medium outline-none cursor-pointer transition-colors`}
         >
           <span>{value}</span>
-          <ChevronDown size={18} className={`text-slate-400 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+          <ChevronDown
+            size={18}
+            className={`text-slate-400 transition-transform ${isOpen ? "rotate-180" : ""}`}
+          />
         </button>
 
         {isOpen && (

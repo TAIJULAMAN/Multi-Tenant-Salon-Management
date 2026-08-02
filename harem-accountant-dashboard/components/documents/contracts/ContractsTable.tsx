@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { MoreVertical, Edit2, Download, MinusCircle } from "lucide-react";
-import Pagination from "@/components/common/Pagination";
+import Pagination from "@/components/customComponent/Pagination";
 import { mockContracts, Contract } from "./data";
 import TerminateContractModal from "./TerminateContractModal";
 import ModifyContractModal from "./ModifyContractModal";
@@ -17,8 +17,9 @@ export default function ContractsTable() {
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [terminatingContract, setTerminatingContract] =
     useState<Contract | null>(null);
-  const [modifyingContract, setModifyingContract] =
-    useState<Contract | null>(null);
+  const [modifyingContract, setModifyingContract] = useState<Contract | null>(
+    null,
+  );
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
   const [successModalTitle, setSuccessModalTitle] = useState("Success!");
   const [successModalMessage, setSuccessModalMessage] = useState("");
@@ -68,7 +69,9 @@ Generated on: ${new Date().toLocaleDateString()}
     URL.revokeObjectURL(url);
 
     setSuccessModalTitle("Download Started!");
-    setSuccessModalMessage(`The contract file for ${contract.employee.name} has been downloaded.`);
+    setSuccessModalMessage(
+      `The contract file for ${contract.employee.name} has been downloaded.`,
+    );
     setIsSuccessModalOpen(true);
     setActiveDropdown(null);
   };
@@ -255,7 +258,9 @@ Generated on: ${new Date().toLocaleDateString()}
           if (terminatingContract) {
             setContracts((prev) =>
               prev.map((c) =>
-                c.id === terminatingContract.id ? { ...c, status: "Inactive" } : c,
+                c.id === terminatingContract.id
+                  ? { ...c, status: "Inactive" }
+                  : c,
               ),
             );
           }

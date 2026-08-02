@@ -2,8 +2,8 @@
 
 import React, { useState } from "react";
 import { Download } from "lucide-react";
-import YearSelect from "@/components/common/YearSelect";
-import ExportModal from "@/components/common/ExportModal";
+import YearSelect from "@/components/customComponent/YearSelect";
+import ExportModal from "@/components/modal/ExportModal";
 import {
   expenseCategories,
   getExpenseBudgetData,
@@ -66,7 +66,10 @@ export default function ExpenseBudgetChart({
 
       {/* SVG Bar Chart */}
       <div className="relative flex-1 min-h-[220px]">
-        <svg className="w-full h-full" viewBox={`0 0 ${SVG_WIDTH} ${SVG_HEIGHT}`}>
+        <svg
+          className="w-full h-full"
+          viewBox={`0 0 ${SVG_WIDTH} ${SVG_HEIGHT}`}
+        >
           {/* Grid Lines (Horizontal) */}
           {[0, 15000, 30000, 45000, 60000].map((tick, idx) => {
             const y = PADDING_TOP + chartHeight - (tick / Y_MAX) * chartHeight;

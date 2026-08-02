@@ -4,8 +4,8 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { Search } from "lucide-react";
 import { pendingTaxesData, TaxStatus } from "./data";
-import CustomSelect from "@/components/common/CustomSelect";
-import Pagination from "@/components/common/Pagination";
+import CustomSelect from "@/components/customComponent/CustomSelect";
+import Pagination from "@/components/customComponent/Pagination";
 
 export default function PendingDeclinedTaxes() {
   const [activeTab, setActiveTab] = useState<"All" | TaxStatus>("All");
@@ -24,7 +24,7 @@ export default function PendingDeclinedTaxes() {
   const totalPages = Math.ceil(filteredData.length / itemsPerPage);
   const paginatedData = filteredData.slice(
     (currentPage - 1) * itemsPerPage,
-    currentPage * itemsPerPage
+    currentPage * itemsPerPage,
   );
 
   return (
@@ -45,7 +45,10 @@ export default function PendingDeclinedTaxes() {
           </div>
 
           <div className="relative w-full sm:w-64">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
+            <Search
+              className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
+              size={18}
+            />
             <input
               type="text"
               placeholder="Search"
@@ -63,19 +66,36 @@ export default function PendingDeclinedTaxes() {
           <table className="w-full min-w-[800px]">
             <thead>
               <tr className="bg-slate-50/70 border-b border-slate-100">
-                <th className="px-6 py-4 text-left text-[13px] font-bold text-slate-700">Tax Type</th>
-                <th className="px-6 py-4 text-left text-[13px] font-bold text-slate-700">Salon</th>
-                <th className="px-6 py-4 text-left text-[13px] font-bold text-slate-700">Period</th>
-                <th className="px-6 py-4 text-left text-[13px] font-bold text-slate-700">Amount</th>
-                <th className="px-6 py-4 text-left text-[13px] font-bold text-slate-700">Due Date</th>
-                <th className="px-6 py-4 text-left text-[13px] font-bold text-slate-700">Status</th>
+                <th className="px-6 py-4 text-left text-[13px] font-bold text-slate-700">
+                  Tax Type
+                </th>
+                <th className="px-6 py-4 text-left text-[13px] font-bold text-slate-700">
+                  Salon
+                </th>
+                <th className="px-6 py-4 text-left text-[13px] font-bold text-slate-700">
+                  Period
+                </th>
+                <th className="px-6 py-4 text-left text-[13px] font-bold text-slate-700">
+                  Amount
+                </th>
+                <th className="px-6 py-4 text-left text-[13px] font-bold text-slate-700">
+                  Due Date
+                </th>
+                <th className="px-6 py-4 text-left text-[13px] font-bold text-slate-700">
+                  Status
+                </th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-50">
               {paginatedData.map((item) => (
-                <tr key={item.id} className="hover:bg-slate-50/50 transition-colors">
+                <tr
+                  key={item.id}
+                  className="hover:bg-slate-50/50 transition-colors"
+                >
                   <td className="px-6 py-5">
-                    <span className="text-[13px] font-bold text-slate-700">{item.taxType}</span>
+                    <span className="text-[13px] font-bold text-slate-700">
+                      {item.taxType}
+                    </span>
                   </td>
                   <td className="px-6 py-5">
                     <div className="flex items-center gap-3">
@@ -90,11 +110,15 @@ export default function PendingDeclinedTaxes() {
                       ) : (
                         <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-purple-500 via-indigo-500 to-cyan-400 shadow-sm shrink-0"></div>
                       )}
-                      <span className="text-[13px] font-medium text-slate-500">{item.salon}</span>
+                      <span className="text-[13px] font-medium text-slate-500">
+                        {item.salon}
+                      </span>
                     </div>
                   </td>
                   <td className="px-6 py-5">
-                    <span className="text-[13px] font-medium text-slate-500">{item.period}</span>
+                    <span className="text-[13px] font-medium text-slate-500">
+                      {item.period}
+                    </span>
                   </td>
                   <td className="px-6 py-5">
                     <span className="inline-flex px-3 py-1 rounded-[6px] bg-indigo-100/50 text-indigo-500 text-[11px] font-bold tracking-wide">
@@ -102,7 +126,9 @@ export default function PendingDeclinedTaxes() {
                     </span>
                   </td>
                   <td className="px-6 py-5">
-                    <span className="text-[13px] font-medium text-slate-500">{item.dueDate}</span>
+                    <span className="text-[13px] font-medium text-slate-500">
+                      {item.dueDate}
+                    </span>
                   </td>
                   <td className="px-6 py-5">
                     <span
@@ -119,7 +145,10 @@ export default function PendingDeclinedTaxes() {
               ))}
               {filteredData.length === 0 && (
                 <tr>
-                  <td colSpan={6} className="px-6 py-8 text-center text-sm text-slate-500 font-medium">
+                  <td
+                    colSpan={6}
+                    className="px-6 py-8 text-center text-sm text-slate-500 font-medium"
+                  >
                     No records found
                   </td>
                 </tr>

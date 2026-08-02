@@ -3,7 +3,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { MoreVertical } from "lucide-react";
 import Image from "next/image";
-import Pagination from "@/components/common/Pagination";
+import Pagination from "@/components/customComponent/Pagination";
 import { latestTransactionsData } from "./data";
 
 export default function LatestTransactions() {

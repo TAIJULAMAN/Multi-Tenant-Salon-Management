@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { Bar } from "react-chartjs-2";
-import CustomSelect from "@/components/common/CustomSelect";
+import CustomSelect from "@/components/customComponent/CustomSelect";
 import { getContractsData } from "./data";
 
 export default function ContractsDistributionChart() {
@@ -13,8 +13,8 @@ export default function ContractsDistributionChart() {
     maintainAspectRatio: false,
     layout: {
       padding: {
-        top: 20
-      }
+        top: 20,
+      },
     },
     interaction: {
       mode: "index" as const,
@@ -69,7 +69,9 @@ export default function ContractsDistributionChart() {
   return (
     <div className="bg-white rounded-2xl shadow-sm ring-1 ring-slate-100 p-4 sm:p-6 flex flex-col h-[380px] sm:h-[460px]">
       <div className="flex flex-row items-center justify-between mb-4 sm:mb-8 gap-2">
-        <h2 className="text-[13px] sm:text-[14px] font-bold text-slate-700 truncate">Contracts Distribution</h2>
+        <h2 className="text-[13px] sm:text-[14px] font-bold text-slate-700 truncate">
+          Contracts Distribution
+        </h2>
         <div className="w-[120px] sm:w-[130px] shrink-0">
           <CustomSelect
             value={filter}

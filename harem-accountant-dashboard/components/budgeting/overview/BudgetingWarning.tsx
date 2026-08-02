@@ -8,7 +8,6 @@ export default function BudgetingWarning() {
   const { selectedSalon } = useSalon();
   const [isVisible, setIsVisible] = useState(true);
 
-  // Reset visibility when the selected salon changes, so the user sees the new warning
   useEffect(() => {
     setIsVisible(true);
   }, [selectedSalon]);
@@ -29,12 +28,13 @@ export default function BudgetingWarning() {
   };
 
   return (
-    <div className="flex items-center justify-between gap-3 bg-kpi-yellow-bg border border-kpi-yellow-icon-bg/70 rounded-xl px-5 py-4 shadow-sm text-xs font-bold text-kpi-yellow-text animate-in fade-in duration-200">
+    <div className="flex items-center justify-between gap-3 bg-kpi-yellow-bg border border-kpi-yellow-icon-bg/70 rounded-xl px-5 py-4 shadow-sm text-xs font-semibold text-kpi-yellow-text animate-in fade-in duration-200">
       <div className="flex items-center gap-3">
-        <AlertTriangle size={18} className="text-kpi-yellow-text shrink-0 animate-bounce" />
-        <span className="leading-normal">
-          {getWarningMessage()}
-        </span>
+        <AlertTriangle
+          size={18}
+          className="text-kpi-yellow-text shrink-0 animate-bounce"
+        />
+        <span className="leading-normal">{getWarningMessage()}</span>
       </div>
       <button
         onClick={() => setIsVisible(false)}

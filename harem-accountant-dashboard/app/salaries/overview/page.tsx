@@ -2,7 +2,7 @@
 
 import React from "react";
 import { useSalon } from "@/context/SalonContext";
-import PageHeader from "@/components/common/PageHeader";
+import PageHeader from "@/components/customComponent/PageHeader";
 import SalariesCharts from "@/components/salaries/overview/SalariesCharts/SalariesCharts";
 import SalariesKPICards from "@/components/salaries/overview/salariesKPICards/SalariesKPICards";
 import RecentlyDeclinedSalaries from "@/components/salaries/overview/recentlyDeclinedSalaries/RecentlyDeclinedSalaries";

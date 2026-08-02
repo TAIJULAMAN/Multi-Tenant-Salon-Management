@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { Calendar } from "lucide-react";
 import { Contract } from "./data";
-import CustomSelect from "@/components/common/CustomSelect";
+import CustomSelect from "@/components/customComponent/CustomSelect";
 
 interface ModifyContractModalProps {
   isOpen: boolean;
@@ -20,8 +20,12 @@ export default function ModifyContractModal({
 }: ModifyContractModalProps) {
   const [startDate, setStartDate] = useState(contract?.startDate || "");
   const [endDate, setEndDate] = useState(contract?.endDate || "");
-  const [type, setType] = useState<Contract["type"]>(contract?.type || "Full Time");
-  const [status, setStatus] = useState<Contract["status"]>(contract?.status || "Active");
+  const [type, setType] = useState<Contract["type"]>(
+    contract?.type || "Full Time",
+  );
+  const [status, setStatus] = useState<Contract["status"]>(
+    contract?.status || "Active",
+  );
 
   useEffect(() => {
     if (isOpen) {
@@ -58,15 +62,23 @@ export default function ModifyContractModal({
       />
 
       <div className="relative w-full max-w-md bg-white border border-slate-100 rounded-3xl p-8 shadow-2xl z-10 animate-in fade-in zoom-in-95 duration-200">
-        <h3 className="text-xl font-bold text-slate-800 mb-2">Modify Contract</h3>
+        <h3 className="text-xl font-bold text-slate-800 mb-2">
+          Modify Contract
+        </h3>
         <p className="text-sm text-slate-500 font-medium mb-6">
-          Edit contract details for <span className="font-bold text-slate-700">{contract.employee.name}</span>.
+          Edit contract details for{" "}
+          <span className="font-bold text-slate-700">
+            {contract.employee.name}
+          </span>
+          .
         </p>
 
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Contract Type */}
           <div>
-            <label className="block text-xs font-bold text-slate-700 mb-2">Contract Type *</label>
+            <label className="block text-xs font-bold text-slate-700 mb-2">
+              Contract Type *
+            </label>
             <CustomSelect
               value={type}
               options={["Full Time", "Part Time", "Vat collaboration", "Stage"]}
@@ -76,7 +88,9 @@ export default function ModifyContractModal({
 
           {/* Start Date */}
           <div>
-            <label className="block text-xs font-bold text-slate-700 mb-2">Start Date *</label>
+            <label className="block text-xs font-bold text-slate-700 mb-2">
+              Start Date *
+            </label>
             <div className="relative">
               <input
                 type="text"
@@ -86,13 +100,18 @@ export default function ModifyContractModal({
                 className="w-full bg-white border border-slate-200 focus:border-[#6366f1] rounded-lg px-4 py-3 text-sm font-medium text-slate-700 outline-none transition-colors pr-10"
                 required
               />
-              <Calendar className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" size={18} />
+              <Calendar
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none"
+                size={18}
+              />
             </div>
           </div>
 
           {/* End Date */}
           <div>
-            <label className="block text-xs font-bold text-slate-700 mb-2">End Date *</label>
+            <label className="block text-xs font-bold text-slate-700 mb-2">
+              End Date *
+            </label>
             <div className="relative">
               <input
                 type="text"
@@ -102,13 +121,18 @@ export default function ModifyContractModal({
                 className="w-full bg-white border border-slate-200 focus:border-[#6366f1] rounded-lg px-4 py-3 text-sm font-medium text-slate-700 outline-none transition-colors pr-10"
                 required
               />
-              <Calendar className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" size={18} />
+              <Calendar
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none"
+                size={18}
+              />
             </div>
           </div>
 
           {/* Status */}
           <div>
-            <label className="block text-xs font-bold text-slate-700 mb-2">Status *</label>
+            <label className="block text-xs font-bold text-slate-700 mb-2">
+              Status *
+            </label>
             <CustomSelect
               value={status}
               options={["Active", "Inactive", "Pending"]}

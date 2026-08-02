@@ -9,8 +9,8 @@ import {
   CheckCircle2,
 } from "lucide-react";
 import Image from "next/image";
-import Pagination from "@/components/common/Pagination";
-import ExportModal from "@/components/common/ExportModal";
+import Pagination from "@/components/customComponent/Pagination";
+import ExportModal from "@/components/modal/ExportModal";
 import { salaryHistoryData } from "./data";
 
 export default function SalaryHistoryTable() {
