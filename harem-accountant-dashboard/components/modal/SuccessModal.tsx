@@ -8,6 +8,7 @@ interface InviteSalonSuccessModalProps {
   onClose: () => void;
   title?: string;
   message?: string;
+  buttonText?: string;
 }
 
 export default function SuccessModal({
@@ -15,6 +16,7 @@ export default function SuccessModal({
   onClose,
   title = "Success!",
   message = "The action was completed successfully.",
+  buttonText = "Ok, close",
 }: InviteSalonSuccessModalProps) {
   // Prevent background scrolling when modal is open
   useEffect(() => {
@@ -47,16 +49,14 @@ export default function SuccessModal({
 
         {/* Text */}
         <h2 className="text-2xl font-semibold text-slate-800 mb-2">{title}</h2>
-        <p className="text-slate-400 mb-8">
-          {message}
-        </p>
+        <p className="text-slate-400 mb-8 whitespace-pre-wrap">{message}</p>
 
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="bg-[#635BFF] hover:bg-[#524BFF] text-white px-8 py-3 rounded-xl font-medium transition-colors w-40"
+          className="bg-[#635BFF] hover:bg-[#524BFF] text-white px-8 py-3 rounded-xl font-medium transition-colors w-40 whitespace-nowrap"
         >
-          Ok, close
+          {buttonText}
         </button>
       </div>
     </div>

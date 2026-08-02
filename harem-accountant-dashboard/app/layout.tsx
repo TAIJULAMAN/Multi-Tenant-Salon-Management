@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Accountant Dashboard - Financial & Payroll Management",
+  title: "Accountant Dashboard",
   description:
     "A premium, responsive dashboard for accountants to manage salon payroll, pending taxes, budgeting, and compliance analytics.",
 };
@@ -30,7 +30,7 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <head>
-        <title>Accountant Dashboard - Financial & Payroll Management</title>
+        <title>Accountant Dashboard</title>
       </head>
       <body className="min-h-full bg-bg-main text-slate-800">
         <a
@@ -39,7 +39,6 @@ export default function RootLayout({
         >
           Skip to main content
         </a>
-        <h1 className="sr-only">Accountant Dashboard</h1>
         <main id="main-content" className="h-full">
           <DashboardLayout>{children}</DashboardLayout>
         </main>

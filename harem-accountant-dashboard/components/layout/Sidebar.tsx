@@ -11,7 +11,6 @@ import {
   Wallet,
   Store,
   ChevronRight,
-  X,
   LineChart,
   Upload,
   Clipboard,
@@ -23,10 +22,10 @@ import {
   Receipt,
 } from "lucide-react";
 import Image from "next/image";
+import CustomCloseButton from "../customComponent/CustomCloseButton";
 import SalonsInvitationsNavlinkIcon from "../icons/SalonsInvitationsNavlinkIcon";
 import PendingInvitationsNavlinkIcon from "../icons/PendingInvitationsNavlinkIcon";
 import RequestAccessNavlinkIcon from "../icons/RequestAccessNavlinkIcon";
-
 
 interface SidebarProps {
   isOpen: boolean;
@@ -260,12 +259,10 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
             />
           </div>
 
-          <button
+          <CustomCloseButton
             onClick={onClose}
             className="flex h-8 w-8 items-center justify-center rounded-xl text-slate-400 hover:bg-slate-50 hover:text-slate-600 lg:hidden"
-          >
-            <X size={18} />
-          </button>
+          />
         </div>
 
         {/* Navigation Categories */}
@@ -292,7 +289,7 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
                       {/* Section Header */}
                       <button
                         onClick={() => toggleExpand(item.name)}
-                        className={`flex w-full items-center justify-between text-sm font-medium px-1 cursor-pointer transition-colors ${
+                        className={`flex w-full items-center justify-between text-sm font-medium px-1 whitespace-nowrap cursor-pointer transition-colors ${
                           isParentActive || isExpanded
                             ? "text-brand"
                             : "text-slate-500 hover:text-slate-900"
@@ -333,7 +330,7 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
                                 onClick={() => {
                                   if (window.innerWidth < 1024) onClose();
                                 }}
-                                className={`flex w-full items-center gap-3 rounded-xl px-4 py-3 text-xs font-bold transition-all cursor-pointer
+                                className={`flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition-all cursor-pointer
                                   ${
                                     isSubActive
                                       ? "bg-brand text-white shadow-md shadow-brand/20"

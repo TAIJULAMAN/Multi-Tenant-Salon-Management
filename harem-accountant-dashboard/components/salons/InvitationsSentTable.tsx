@@ -1,7 +1,6 @@
 import React from "react";
 import { Mail, X, Copy, Crown } from "lucide-react";
-
-import Pagination from "../customComponent/Pagination";
+import Image from "next/image";
 
 export interface InvitationData {
   id: number;
@@ -14,24 +13,15 @@ export interface InvitationData {
   share: string;
   lastShare: string;
   avatarGradient: string;
+  avatarImage?: string;
 }
 
 interface InvitationsSentTableProps {
   invitations: InvitationData[];
-  currentPage: number;
-  totalPages: number;
-  totalItems: number;
-  itemsPerPage?: number;
-  onPageChange: (page: number) => void;
 }
 
 export default function InvitationsSentTable({
   invitations,
-  currentPage,
-  totalPages,
-  totalItems,
-  itemsPerPage = 5,
-  onPageChange,
 }: InvitationsSentTableProps) {
   return (
     <div className="overflow-x-auto border border-slate-100 rounded-xl">
@@ -67,11 +57,21 @@ export default function InvitationsSentTable({
               }`}
             >
               {/* Salon */}
-              <td className="px-6 py-4">
+              <td className="px-3 py-2">
                 <div className="flex items-center gap-3">
-                  <div
-                    className={`w-10 h-10 rounded-xl shrink-0 bg-gradient-to-tr ${inv.avatarGradient} flex items-center justify-center text-white font-bold text-sm shadow-sm opacity-90`}
-                  />
+                  {inv.avatarImage ? (
+                    <Image
+                      width={40}
+                      height={40}
+                      src={inv.avatarImage}
+                      alt={inv.salonName}
+                      className="w-10 h-10 rounded-xl object-cover shrink-0 shadow-sm opacity-90"
+                    />
+                  ) : (
+                    <div
+                      className={`w-10 h-10 rounded-xl shrink-0 bg-gradient-to-tr ${inv.avatarGradient} flex items-center justify-center text-white font-bold text-sm shadow-sm opacity-90`}
+                    />
+                  )}
                   <div>
                     <h3 className="text-sm font-semibold text-slate-800">
                       {inv.salonName}
@@ -82,50 +82,42 @@ export default function InvitationsSentTable({
               </td>
 
               {/* Date */}
-              <td className="px-6 py-4 text-sm text-slate-600">{inv.date}</td>
+              <td className="px-3 py-2 text-sm text-slate-600">{inv.date}</td>
 
               {/* Status */}
-              <td className="px-6 py-4">
-                {inv.status === "Accepted" && (
-                  <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-[#E8F8EE] text-[#36C76C]">
-                    Accepted
-                  </span>
-                )}
-                {inv.status === "Pending" && (
-                  <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-[#FFF7E3] text-[#FFB020]">
-                    Pending
-                  </span>
-                )}
-                {inv.status === "Rejected" && (
-                  <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-[#FFEBEB] text-[#FF3B30]">
-                    Rejected
-                  </span>
-                )}
+              <td className="px-3 py-2">
+                <span
+                  className={`inline-flex px-2.5 py-1 rounded-xl text-xs
+                  ${inv.status === "Accepted" ? "bg-[#EBFAF0] text-[#36C76C]" : ""}
+                  ${inv.status === "Pending" ? "bg-[#FFF7E3] text-[#FFB020]" : ""}
+                  ${inv.status === "Rejected" ? "bg-[#FDE7E9] text-[#E63946]" : ""}
+                `}
+                >
+                  {inv.status}
+                </span>
               </td>
 
               {/* Plan */}
-              <td className="px-6 py-4">
-                {inv.plan === "Premium" && (
-                  <div>
-                    <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-[#E6F7F6] text-[#0D9488] mb-1">
-                      Premium
+              <td className="px-3 py-2">
+                {inv.plan !== "-" ? (
+                  <div className="space-y-1.5">
+                    <span
+                      className={`inline-flex items-center px-2 py-1 rounded-lg text-xs
+                      ${inv.plan === "Premium" ? "bg-[#D2F4F2] text-[#29343D]" : ""}
+                      ${inv.plan === "Enterprise" ? "bg-brand text-white" : ""}
+                      ${inv.plan === "Basic" ? "bg-[#DAD8FF] text-[#29343D]" : ""}
+                    `}
+                    >
+                      {inv.plan === "Enterprise" && (
+                        <Crown size={12} className="mr-1" />
+                      )}
+                      {inv.plan}
                     </span>
-                    <p className="text-[11px] text-slate-500">
+                    <div className="text-xs text-slate-500 font-medium">
                       {inv.planDetails}
-                    </p>
+                    </div>
                   </div>
-                )}
-                {inv.plan === "Enterprise" && (
-                  <div>
-                    <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium bg-[#635BFF] text-white mb-1">
-                      <Crown size={12} /> Enterprise
-                    </span>
-                    <p className="text-[11px] text-slate-500">
-                      {inv.planDetails}
-                    </p>
-                  </div>
-                )}
-                {inv.plan === "-" && (
+                ) : (
                   <span className="text-sm text-slate-400">-</span>
                 )}
               </td>
@@ -164,15 +156,6 @@ export default function InvitationsSentTable({
           ))}
         </tbody>
       </table>
-
-      <Pagination
-        currentPage={currentPage}
-        totalPages={totalPages}
-        totalItems={totalItems}
-        itemsPerPage={itemsPerPage}
-        itemsName="invitations"
-        onPageChange={onPageChange}
-      />
     </div>
   );
 }

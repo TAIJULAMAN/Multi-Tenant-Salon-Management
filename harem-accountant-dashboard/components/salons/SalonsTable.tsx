@@ -45,11 +45,12 @@ export default function SalonsTable({ salons, onView }: SalonsTableProps) {
               <td className="px-6 py-4">
                 <div className="flex items-center gap-4">
                   {salon.avatarImage ? (
-                    <div className="relative w-12 h-12 rounded-xl shrink-0 overflow-hidden shadow-sm">
+                    <div className="relative rounded-xl shrink-0 overflow-hidden">
                       <Image
+                        width={48}
+                        height={48}
                         src={salon.avatarImage}
                         alt={salon.name}
-                        fill
                         className="object-cover"
                       />
                     </div>
@@ -74,10 +75,10 @@ export default function SalonsTable({ salons, onView }: SalonsTableProps) {
                   </div>
                 </div>
               </td>
-              <td className="px-6 py-4">
+              <td className="px-3 py-2">
                 <div className="space-y-1.5">
                   <span
-                    className={`inline-flex items-center px-2.5 py-1 rounded-lg text-xxs
+                    className={`inline-flex items-center px-2 py-1 rounded-lg text-xs
                     ${salon.plan === "Premium" ? "bg-[#D2F4F2] text-[#29343D]" : ""}
                     ${salon.plan === "Enterprise" ? "bg-brand text-white" : ""}
                     ${salon.plan === "Basic" ? "bg-[#DAD8FF] text-[#29343D]" : ""}
@@ -95,7 +96,7 @@ export default function SalonsTable({ salons, onView }: SalonsTableProps) {
               </td>
               <td className="px-6 py-4">
                 <span
-                  className={`inline-flex px-2.5 py-1 rounded-md text-xxs
+                  className={`inline-flex px-2 py-1 rounded-xl text-xs
                   ${salon.paymentStatus === "In order" ? "bg-[#EBFAF0] text-[#36C76C]" : "bg-[#FDE7E9] text-[#E63946]"}
                 `}
                 >
@@ -120,7 +121,7 @@ export default function SalonsTable({ salons, onView }: SalonsTableProps) {
               </td>
               <td className="px-6 py-4">
                 <div className="flex items-center justify-end gap-2 pr-2">
-                  <button 
+                  <button
                     onClick={() => onView && onView(salon)}
                     className="w-8 h-8 rounded-lg bg-indigo-50 text-brand flex items-center justify-center hover:bg-indigo-100 transition-colors cursor-pointer"
                   >
