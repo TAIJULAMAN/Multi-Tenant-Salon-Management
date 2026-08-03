@@ -1,9 +1,9 @@
 "use client";
 
 import React, { useState } from "react";
-import { Download } from "lucide-react";
-import YearSelect from "@/components/common/YearSelect";
-import ExportModal from "@/components/common/ExportModal";
+import YearSelect from "@/components/customComponent/YearSelect";
+import CustomExportButton from "@/components/customComponent/CustomExportButton";
+import ExportModal from "@/components/modal/ExportModal";
 import {
   payrollMonths,
   getPayrollData,
@@ -70,19 +70,20 @@ export default function PayrollChart({ selectedSalon }: PayrollChartProps) {
             selectedYear={selectedYear}
             onYearChange={setSelectedYear}
           />
-          <button 
+          <CustomExportButton
+            label="Export Data"
+            variant="outline"
             onClick={() => setIsExportOpen(true)}
-            className="flex items-center gap-1.5 border border-brand bg-white text-brand text-xs font-semibold px-3 py-1.5 rounded-lg transition-all shadow-sm cursor-pointer hover:bg-brand/5"
-          >
-            <Download size={12} />
-            <span>Export Data</span>
-          </button>
+          />
         </div>
       </div>
 
       {/* SVG Area Chart */}
       <div className="relative flex-1 min-h-[220px]">
-        <svg className="w-full h-full" viewBox={`0 0 ${SVG_WIDTH} ${SVG_HEIGHT}`}>
+        <svg
+          className="w-full h-full"
+          viewBox={`0 0 ${SVG_WIDTH} ${SVG_HEIGHT}`}
+        >
           {/* Definitions for Gradients */}
           <defs>
             <linearGradient id="areaGradient" x1="0" y1="0" x2="0" y2="1">
@@ -207,10 +208,10 @@ export default function PayrollChart({ selectedSalon }: PayrollChartProps) {
         )}
       </div>
       {isExportOpen && (
-        <ExportModal 
-          isOpen={isExportOpen} 
-          onClose={() => setIsExportOpen(false)} 
-          title="Payroll Over Time Analytics" 
+        <ExportModal
+          isOpen={isExportOpen}
+          onClose={() => setIsExportOpen(false)}
+          title="Payroll Over Time Analytics"
         />
       )}
     </div>
