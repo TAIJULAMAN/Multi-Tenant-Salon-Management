@@ -18,41 +18,37 @@ export default function KPICards({ selectedSalon }: KPICardsProps) {
       case "salaries":
         return (
           <Image
-            src="/DashboardCardsIcon/SalariesPendingApprovalIcon.png"
+            src="/icons/SalariesPendingApproval.svg"
             alt="Salaries Pending Approval"
-            width={44}
-            height={44}
-            className="h-full w-full object-contain"
+            width={24}
+            height={24}
           />
         );
       case "taxes":
         return (
           <Image
-            src="/DashboardCardsIcon/TaxesPendingApprovalIcon.png"
+            src="/icons/TaxesPendingApproval.svg"
             alt="Taxes Pending Approval"
-            width={44}
-            height={44}
-            className="h-full w-full object-contain"
+            width={24}
+            height={24}
           />
         );
       case "deadlines":
         return (
           <Image
-            src="/DashboardCardsIcon/UpcomingDeadlinesIcon.png"
+            src="/icons/UpcomingDeadlines.svg"
             alt="Upcoming Deadlines"
-            width={44}
-            height={44}
-            className="h-full w-full object-contain"
+            width={24}
+            height={24}
           />
         );
       case "warnings":
         return (
           <Image
-            src="/DashboardCardsIcon/BudgetWarningsIcon.png"
+            src="/icons/BudgetWarnings.svg"
             alt="Budget Warnings"
-            width={44}
-            height={44}
-            className="h-full w-full object-contain"
+            width={24}
+            height={24}
           />
         );
     }
@@ -76,23 +72,23 @@ export default function KPICards({ selectedSalon }: KPICardsProps) {
               >
                 {renderIcon(stat.iconType)}
               </div>
-              <span className="text-[13px] font-bold text-slate-700 tracking-tight leading-snug">
+              <span className="text-lg font-semibold text-slate-700 tracking-tight leading-snug">
                 {stat.title}
               </span>
             </div>
 
             {/* Content: Value + Stats info */}
             <div className="mt-8">
-              <h3 className="text-[38px] font-bold tracking-tight text-slate-800 leading-none">
+              <h3 className="text-2xl font-bold tracking-tight text-slate-800 leading-none">
                 {stat.value}
               </h3>
 
               <div className="mt-4 flex flex-col gap-0.5">
-                <span className="text-[12px] font-bold text-slate-800">
+                <span className="text-xs font-semibold text-slate-800">
                   {stat.subtext}
                 </span>
                 {stat.change && (
-                  <span className="text-[11px] font-semibold text-slate-400 mt-1">
+                  <span className="text-xs font-semibold text-slate-400 mt-1">
                     {stat.change}
                   </span>
                 )}
@@ -104,4 +100,3 @@ export default function KPICards({ selectedSalon }: KPICardsProps) {
     </div>
   );
 }
-
