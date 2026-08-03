@@ -14,24 +14,41 @@ import {
   Tooltip,
   Legend,
   ArcElement,
+  TooltipItem,
+  Plugin,
+  ChartDataset,
 } from "chart.js";
 
-ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ArcElement);
+interface CustomDoughnutDataset extends ChartDataset<"doughnut"> {
+  centerText?: string;
+}
 
-const centerTextPlugin = {
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+  ArcElement,
+);
+
+const centerTextPlugin: Plugin<"doughnut"> = {
   id: "centerText",
-  beforeDraw(chart: any) {
-    if (chart.config.type !== "doughnut") return;
+  beforeDraw(chart) {
+    if ((chart.config as unknown as { type: string }).type !== "doughnut") return;
     const { ctx, data } = chart;
-    const text = data.datasets[0].centerText;
+    const dataset = data.datasets[0] as CustomDoughnutDataset;
+    const text = dataset.centerText;
     if (text) {
       ctx.save();
-      const x = chart.getDatasetMeta(0).data[0].x;
-      const y = chart.getDatasetMeta(0).data[0].y;
+      const metaData = chart.getDatasetMeta(0).data[0] as ArcElement;
+      const x = metaData.x;
+      const y = metaData.y;
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
       ctx.font = "500 24px Inter, sans-serif";
-      ctx.fillStyle = "#334155"; // slate-700
+      ctx.fillStyle = "#334155";
       ctx.fillText(text, x, y);
       ctx.restore();
     }
@@ -49,8 +66,8 @@ export default function DocumentsOverview() {
     maintainAspectRatio: false,
     layout: {
       padding: {
-        bottom: 20
-      }
+        bottom: 20,
+      },
     },
     plugins: {
       legend: {
@@ -58,7 +75,7 @@ export default function DocumentsOverview() {
         align: "start" as const,
         labels: {
           usePointStyle: true,
-          pointStyle: 'circle',
+          pointStyle: "circle",
           padding: 24,
           boxWidth: 6,
           boxHeight: 6,
@@ -72,7 +89,8 @@ export default function DocumentsOverview() {
       },
       tooltip: {
         callbacks: {
-          label: (context: any) => ` ${context.label}: ${context.raw}%`,
+          label: (context: TooltipItem<"doughnut">) =>
+            ` ${context.label}: ${context.raw}%`,
         },
       },
     },
@@ -81,7 +99,7 @@ export default function DocumentsOverview() {
   return (
     <div className="flex flex-col space-y-6">
       <div className="bg-white rounded-xl shadow-sm ring-1 ring-slate-100 px-6 py-5">
-        <h1 className="text-lg font-semibold text-slate-800 tracking-tight">
+        <h1 className="text-xl font-semibold text-slate-800 tracking-tight">
           Documents Overview
         </h1>
       </div>
