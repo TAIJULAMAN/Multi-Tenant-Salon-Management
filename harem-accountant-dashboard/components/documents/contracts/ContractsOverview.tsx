@@ -10,7 +10,7 @@ export default function ContractsOverview() {
   return (
     <div className="flex flex-col space-y-6">
       <div className="bg-white rounded-xl shadow-sm ring-1 ring-slate-100 px-6 py-5 flex items-center justify-between">
-        <h1 className="text-lg font-semibold text-slate-800 tracking-tight">
+        <h1 className="text-xl font-semibold text-slate-800 tracking-tight">
           Contracts Overview
         </h1>
         <Link
