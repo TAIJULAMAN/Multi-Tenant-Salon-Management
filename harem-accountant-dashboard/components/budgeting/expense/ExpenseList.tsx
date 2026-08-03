@@ -1,9 +1,17 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
-import { MoreVertical, Eye, Pencil, Paperclip, FileText, Download, Trash2 } from "lucide-react";
+import {
+  MoreVertical,
+  Eye,
+  Pencil,
+  Paperclip,
+  FileText,
+  Download,
+  Trash2,
+} from "lucide-react";
 import Image from "next/image";
-import Pagination from "@/components/common/Pagination";
+import Pagination from "@/components/customComponent/Pagination";
 import { ExpenseTransaction } from "./data";
 
 interface ExpenseListProps {
@@ -32,11 +40,17 @@ export default function ExpenseList({
 
   const totalItems = expenses.length;
   const totalPages = Math.ceil(totalItems / pageSize) || 1;
-  const paginatedData = expenses.slice((currentPage - 1) * pageSize, currentPage * pageSize);
+  const paginatedData = expenses.slice(
+    (currentPage - 1) * pageSize,
+    currentPage * pageSize,
+  );
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
         setActiveMenuId(null);
       }
     }
@@ -89,19 +103,38 @@ export default function ExpenseList({
         <table className="w-full text-left border-collapse">
           <thead>
             <tr className="bg-[#f8fafc] border-b border-slate-100">
-              <th className="px-6 py-5 text-xs font-bold text-slate-700 whitespace-nowrap">Date</th>
-              <th className="px-6 py-5 text-xs font-bold text-slate-700 whitespace-nowrap">Salon</th>
-              <th className="px-6 py-5 text-xs font-bold text-slate-700 whitespace-nowrap">Macro-categories</th>
-              <th className="px-6 py-5 text-xs font-bold text-slate-700 whitespace-nowrap">Category</th>
-              <th className="px-6 py-5 text-xs font-bold text-slate-700 whitespace-nowrap">Cost</th>
-              <th className="px-6 py-5 text-xs font-bold text-slate-700 whitespace-nowrap">Supplier</th>
-              <th className="px-6 py-5 text-xs font-bold text-slate-700 whitespace-nowrap">Payment method</th>
-              <th className="px-6 py-5 text-xs font-bold text-slate-700 whitespace-nowrap text-right">Actions</th>
+              <th className="px-6 py-5 text-xs font-bold text-slate-700 whitespace-nowrap">
+                Date
+              </th>
+              <th className="px-6 py-5 text-xs font-bold text-slate-700 whitespace-nowrap">
+                Salon
+              </th>
+              <th className="px-6 py-5 text-xs font-bold text-slate-700 whitespace-nowrap">
+                Macro-categories
+              </th>
+              <th className="px-6 py-5 text-xs font-bold text-slate-700 whitespace-nowrap">
+                Category
+              </th>
+              <th className="px-6 py-5 text-xs font-bold text-slate-700 whitespace-nowrap">
+                Cost
+              </th>
+              <th className="px-6 py-5 text-xs font-bold text-slate-700 whitespace-nowrap">
+                Supplier
+              </th>
+              <th className="px-6 py-5 text-xs font-bold text-slate-700 whitespace-nowrap">
+                Payment method
+              </th>
+              <th className="px-6 py-5 text-xs font-bold text-slate-700 whitespace-nowrap text-right">
+                Actions
+              </th>
             </tr>
           </thead>
           <tbody className="divide-y divide-slate-100">
             {paginatedData.map((tx) => (
-              <tr key={tx.id} className="hover:bg-slate-50/50 transition-colors">
+              <tr
+                key={tx.id}
+                className="hover:bg-slate-50/50 transition-colors"
+              >
                 {/* Date */}
                 <td className="px-6 py-4 text-xs font-semibold text-slate-500 whitespace-nowrap">
                   {tx.date}
@@ -117,13 +150,17 @@ export default function ExpenseList({
                       height={32}
                       className="h-8 w-8 rounded-xl object-cover shadow-sm bg-slate-50 shrink-0"
                     />
-                    <span className="text-xs font-extrabold text-slate-700">{tx.salon.name}</span>
+                    <span className="text-xs font-extrabold text-slate-700">
+                      {tx.salon.name}
+                    </span>
                   </div>
                 </td>
 
                 {/* Macro Category */}
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <span className={`text-[10px] font-extrabold px-2.5 py-1 rounded-lg ${getMacroCategoryBadge(tx.macroCategory)}`}>
+                  <span
+                    className={`text-[10px] font-extrabold px-2.5 py-1 rounded-lg ${getMacroCategoryBadge(tx.macroCategory)}`}
+                  >
                     {tx.macroCategory}
                   </span>
                 </td>
@@ -137,7 +174,11 @@ export default function ExpenseList({
 
                 {/* Cost */}
                 <td className="px-6 py-4 text-xs font-extrabold text-slate-800 whitespace-nowrap">
-                  € {tx.cost.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                  €{" "}
+                  {tx.cost.toLocaleString("en-US", {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  })}
                 </td>
 
                 {/* Supplier */}
@@ -147,15 +188,22 @@ export default function ExpenseList({
 
                 {/* Payment Method */}
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <span className={`text-[10px] font-extrabold px-2.5 py-1 rounded-lg border ${getPaymentMethodBadge(tx.paymentMethod)}`}>
+                  <span
+                    className={`text-[10px] font-extrabold px-2.5 py-1 rounded-lg border ${getPaymentMethodBadge(tx.paymentMethod)}`}
+                  >
                     {tx.paymentMethod}
                   </span>
                 </td>
 
                 {/* Actions */}
-                <td className="px-6 py-4 text-right whitespace-nowrap relative" ref={activeMenuId === tx.id ? dropdownRef : null}>
+                <td
+                  className="px-6 py-4 text-right whitespace-nowrap relative"
+                  ref={activeMenuId === tx.id ? dropdownRef : null}
+                >
                   <button
-                    onClick={() => setActiveMenuId(activeMenuId === tx.id ? null : tx.id)}
+                    onClick={() =>
+                      setActiveMenuId(activeMenuId === tx.id ? null : tx.id)
+                    }
                     className="p-1.5 rounded-lg text-slate-400 hover:bg-slate-100 hover:text-slate-600 transition-colors cursor-pointer"
                   >
                     <MoreVertical size={16} />

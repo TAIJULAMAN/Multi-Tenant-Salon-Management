@@ -44,13 +44,18 @@ export default function ReceiptsKPICards() {
             className={`${card.bgColor} rounded-2xl p-5 shadow-sm ring-1 ring-slate-100/50 flex flex-col justify-between`}
           >
             <div className="flex items-center gap-3 mb-4">
-              <div className={`${card.iconBgColor} text-white w-9 h-9 rounded-[10px] flex items-center justify-center shrink-0 shadow-sm`}>
+              <div
+                className={`${card.iconBgColor} text-white w-9 h-9 rounded-[10px] flex items-center justify-center shrink-0 shadow-sm`}
+              >
                 <Icon size={18} strokeWidth={2.5} />
               </div>
-              <span className="text-[13px] font-semibold text-slate-700">{card.title}</span>
+              <span className="text-[13px] font-semibold text-slate-700">
+                {card.title}
+              </span>
             </div>
-            <div className="text-xl font-semibold text-slate-800 mb-5">{card.value}</div>
-
+            <div className="text-xl font-semibold text-slate-800 mb-5">
+              {card.value}
+            </div>
           </div>
         );
       })}
