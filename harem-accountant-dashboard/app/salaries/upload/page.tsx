@@ -1,5 +1,5 @@
 import React from "react";
-import PageHeader from "@/components/common/PageHeader";
+import PageHeader from "@/components/customComponent/PageHeader";
 import SalaryUploadFlow from "@/components/salaries/newUpload/SalaryUploadFlow";
 
 export default function SalaryUploadPage() {
