@@ -1,38 +1,11 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from "react";
-import { MoreVertical } from "lucide-react";
+import React from "react";
 import Image from "next/image";
-import Pagination from "@/components/common/Pagination";
 import { latestTransactionsData } from "./data";
 
 export default function LatestTransactions() {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [activeMenuId, setActiveMenuId] = useState<string | null>(null);
-  const menuRef = useRef<HTMLDivElement>(null);
-  const dropdownRef = useRef<HTMLTableCellElement | null>(null);
-
-  const pageSize = 5;
-  const totalItems = latestTransactionsData.length;
-  const totalPages = Math.ceil(totalItems / pageSize);
-
-  const paginatedData = latestTransactionsData.slice(
-    (currentPage - 1) * pageSize,
-    currentPage * pageSize,
-  );
-
-  // Close menus when clicking outside
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
-        setActiveMenuId(null);
-      }
-    }
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
+  const currentData = latestTransactionsData.slice(0, 5);
 
   const getMacroCategoryBadge = (category: string) => {
     switch (category) {
@@ -68,7 +41,7 @@ export default function LatestTransactions() {
     <div className="bg-white rounded-2xl shadow-sm ring-1 ring-slate-100 overflow-hidden flex flex-col">
       {/* Title */}
       <div className="p-5 border-b border-slate-100 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-        <h3 className="text-sm font-bold text-slate-800 tracking-tight">
+        <h3 className="text-lg font-semibold text-slate-800 tracking-tight">
           Latest Transactions
         </h3>
       </div>
@@ -99,13 +72,10 @@ export default function LatestTransactions() {
               <th className="px-6 py-5 text-xs font-bold text-slate-700 whitespace-nowrap">
                 Payment method
               </th>
-              <th className="px-6 py-5 text-xs font-bold text-slate-700 whitespace-nowrap text-right">
-                Actions
-              </th>
             </tr>
           </thead>
           <tbody className="divide-y divide-slate-100">
-            {paginatedData.map((tx) => (
+            {currentData.map((tx) => (
               <tr
                 key={tx.id}
                 className="hover:bg-slate-50/50 transition-colors"
@@ -171,62 +141,11 @@ export default function LatestTransactions() {
                       : tx.paymentMethod}
                   </span>
                 </td>
-
-                {/* Actions */}
-                <td
-                  className="px-6 py-4 text-right whitespace-nowrap relative"
-                  ref={activeMenuId === tx.id ? dropdownRef : null}
-                >
-                  <button
-                    onClick={() =>
-                      setActiveMenuId(activeMenuId === tx.id ? null : tx.id)
-                    }
-                    className="p-1.5 rounded-lg text-slate-400 hover:bg-slate-100 hover:text-slate-600 transition-colors cursor-pointer"
-                  >
-                    <MoreVertical size={16} />
-                  </button>
-
-                  {activeMenuId === tx.id && (
-                    <div
-                      ref={menuRef}
-                      className="absolute right-6 z-20 mt-1 w-32 bg-white rounded-xl shadow-xl ring-1 ring-slate-100 py-1.5 animate-in fade-in slide-in-from-top-2 text-left"
-                    >
-                      <button
-                        onClick={() => setActiveMenuId(null)}
-                        className="w-full text-left px-4 py-2 text-xs text-slate-600 hover:bg-slate-50 font-semibold transition-colors cursor-pointer"
-                      >
-                        View Details
-                      </button>
-                      <button
-                        onClick={() => setActiveMenuId(null)}
-                        className="w-full text-left px-4 py-2 text-xs text-slate-600 hover:bg-slate-50 font-semibold transition-colors cursor-pointer"
-                      >
-                        Edit Transaction
-                      </button>
-                      <button
-                        onClick={() => setActiveMenuId(null)}
-                        className="w-full text-left px-4 py-2 text-xs text-status-high-text hover:bg-red-50 font-bold transition-colors cursor-pointer"
-                      >
-                        Delete
-                      </button>
-                    </div>
-                  )}
-                </td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
-
-      {/* Pagination Footer */}
-      <Pagination
-        currentPage={currentPage}
-        totalPages={totalPages}
-        totalItems={totalItems}
-        itemsPerPage={pageSize}
-        itemsName="transactions"
-        onPageChange={setCurrentPage}
-      />
     </div>
   );
 }
