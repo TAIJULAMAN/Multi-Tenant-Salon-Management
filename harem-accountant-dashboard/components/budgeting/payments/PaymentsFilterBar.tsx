@@ -1,6 +1,6 @@
 import React from "react";
 import { filterOptions } from "./data";
-import CustomSelect from "@/components/common/CustomSelect";
+import CustomSelect from "@/components/customComponent/CustomSelect";
 
 interface PaymentsFilterBarProps {
   activeMethod: string;
@@ -17,7 +17,7 @@ export default function PaymentsFilterBar({
   activeStatus,
   setActiveStatus,
   activeReceipt,
-  setActiveReceipt
+  setActiveReceipt,
 }: PaymentsFilterBarProps) {
   return (
     <div className="flex flex-col md:flex-row justify-end gap-4 mb-6">
