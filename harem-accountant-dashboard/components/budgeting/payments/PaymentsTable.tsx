@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { MoreVertical, Eye, RotateCcw, Printer } from "lucide-react";
 import { mockPayments } from "./data";
-import Pagination from "@/components/common/Pagination";
+import Pagination from "@/components/customComponent/Pagination";
 
 interface PaymentsTableProps {
   activeMethod: string;
@@ -12,7 +12,11 @@ interface PaymentsTableProps {
   activeReceipt: string;
 }
 
-export default function PaymentsTable({ activeMethod, activeStatus, activeReceipt }: PaymentsTableProps) {
+export default function PaymentsTable({
+  activeMethod,
+  activeStatus,
+  activeReceipt,
+}: PaymentsTableProps) {
   const [openDropdownId, setOpenDropdownId] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const numItemsPerPage = 5;
@@ -23,10 +27,11 @@ export default function PaymentsTable({ activeMethod, activeStatus, activeReceip
   }, [activeMethod, activeStatus, activeReceipt]);
 
   // Filter Data
-  const filteredPayments = mockPayments.filter(payment => {
+  const filteredPayments = mockPayments.filter((payment) => {
     if (activeMethod !== "All" && payment.method !== activeMethod) return false;
     if (activeStatus !== "All" && payment.status !== activeStatus) return false;
-    if (activeReceipt !== "All" && payment.receiptIssue !== activeReceipt) return false;
+    if (activeReceipt !== "All" && payment.receiptIssue !== activeReceipt)
+      return false;
     return true;
   });
 
@@ -35,7 +40,10 @@ export default function PaymentsTable({ activeMethod, activeStatus, activeReceip
   const safeCurrentPage = Math.max(1, Math.min(currentPage, totalPages));
 
   const startIndex = (safeCurrentPage - 1) * numItemsPerPage;
-  const currentItems = filteredPayments.slice(startIndex, startIndex + numItemsPerPage);
+  const currentItems = filteredPayments.slice(
+    startIndex,
+    startIndex + numItemsPerPage,
+  );
   const endItem = Math.min(startIndex + numItemsPerPage, totalItems);
 
   const handlePageChange = (page: number) => {
@@ -90,49 +98,94 @@ export default function PaymentsTable({ activeMethod, activeStatus, activeReceip
         <table className="w-full text-left border-collapse whitespace-nowrap">
           <thead>
             <tr className="bg-[#f8fafc] border-b border-slate-100">
-              <th className="px-6 py-4 text-xs font-bold text-slate-700 w-16">ID</th>
-              <th className="px-6 py-4 text-xs font-bold text-slate-700">Payment Date</th>
-              <th className="px-6 py-4 text-xs font-bold text-slate-700">Client</th>
-              <th className="px-6 py-4 text-xs font-bold text-slate-700">Team Member</th>
-              <th className="px-6 py-4 text-xs font-bold text-slate-700">Salon</th>
-              <th className="px-6 py-4 text-xs font-bold text-slate-700">Method</th>
-              <th className="px-6 py-4 text-xs font-bold text-slate-700">Status</th>
-              <th className="px-6 py-4 text-xs font-bold text-slate-700">Receipt Issue</th>
-              <th className="px-6 py-4 text-xs font-bold text-slate-700 w-16 text-center">Actions</th>
+              <th className="px-6 py-4 text-xs font-bold text-slate-700 w-16">
+                ID
+              </th>
+              <th className="px-6 py-4 text-xs font-bold text-slate-700">
+                Payment Date
+              </th>
+              <th className="px-6 py-4 text-xs font-bold text-slate-700">
+                Client
+              </th>
+              <th className="px-6 py-4 text-xs font-bold text-slate-700">
+                Team Member
+              </th>
+              <th className="px-6 py-4 text-xs font-bold text-slate-700">
+                Salon
+              </th>
+              <th className="px-6 py-4 text-xs font-bold text-slate-700">
+                Method
+              </th>
+              <th className="px-6 py-4 text-xs font-bold text-slate-700">
+                Status
+              </th>
+              <th className="px-6 py-4 text-xs font-bold text-slate-700">
+                Receipt Issue
+              </th>
+              <th className="px-6 py-4 text-xs font-bold text-slate-700 w-16 text-center">
+                Actions
+              </th>
             </tr>
           </thead>
           <tbody className="divide-y divide-slate-100">
             {currentItems.map((payment) => (
-              <tr key={payment.id} className="hover:bg-slate-50/50 transition-colors group">
-                <td className="px-6 py-4 text-xs font-semibold text-[#5c60f5]">{payment.id}</td>
-                <td className="px-6 py-4 text-xs font-semibold text-slate-700">{payment.paymentDate}</td>
-                <td className="px-6 py-4">
-                  <div className="text-xs font-bold text-slate-800">{payment.client.name}</div>
-                  <div className="text-[10px] font-semibold text-slate-400">{payment.client.email}</div>
+              <tr
+                key={payment.id}
+                className="hover:bg-slate-50/50 transition-colors group"
+              >
+                <td className="px-6 py-4 text-xs font-semibold text-[#5c60f5]">
+                  {payment.id}
+                </td>
+                <td className="px-6 py-4 text-xs font-semibold text-slate-700">
+                  {payment.paymentDate}
                 </td>
                 <td className="px-6 py-4">
-                  <div className="text-xs font-bold text-slate-800">{payment.teamMember.name}</div>
-                  <div className="text-[10px] font-semibold text-slate-400">{payment.teamMember.email}</div>
+                  <div className="text-xs font-bold text-slate-800">
+                    {payment.client.name}
+                  </div>
+                  <div className="text-[10px] font-semibold text-slate-400">
+                    {payment.client.email}
+                  </div>
                 </td>
-                <td className="px-6 py-4 text-xs font-semibold text-slate-600">{payment.salon}</td>
                 <td className="px-6 py-4">
-                  <span className={`px-2.5 py-1 rounded-md text-[10px] font-extrabold ${getMethodBadge(payment.method)}`}>
+                  <div className="text-xs font-bold text-slate-800">
+                    {payment.teamMember.name}
+                  </div>
+                  <div className="text-[10px] font-semibold text-slate-400">
+                    {payment.teamMember.email}
+                  </div>
+                </td>
+                <td className="px-6 py-4 text-xs font-semibold text-slate-600">
+                  {payment.salon}
+                </td>
+                <td className="px-6 py-4">
+                  <span
+                    className={`px-2.5 py-1 rounded-md text-[10px] font-extrabold ${getMethodBadge(payment.method)}`}
+                  >
                     {payment.method}
                   </span>
                 </td>
                 <td className="px-6 py-4">
-                  <span className={`px-2.5 py-1 rounded-full text-[10px] font-extrabold ${getStatusBadge(payment.status)}`}>
+                  <span
+                    className={`px-2.5 py-1 rounded-full text-[10px] font-extrabold ${getStatusBadge(payment.status)}`}
+                  >
                     {payment.status}
                   </span>
                 </td>
                 <td className="px-6 py-4">
-                  <span className={`px-2.5 py-1 rounded-full text-[10px] font-extrabold ${getReceiptBadge(payment.receiptIssue)}`}>
+                  <span
+                    className={`px-2.5 py-1 rounded-full text-[10px] font-extrabold ${getReceiptBadge(payment.receiptIssue)}`}
+                  >
                     {payment.receiptIssue}
                   </span>
                 </td>
                 <td className="px-6 py-4 text-center relative">
                   <button
-                    onClick={() => setOpenDropdownId(openDropdownId === payment.id ? null : payment.id)}
+                    onClick={() =>
+                      setOpenDropdownId(
+                        openDropdownId === payment.id ? null : payment.id,
+                      )
+                    }
                     className="p-1.5 text-slate-400 hover:text-[#5c60f5] hover:bg-[#f3effe] rounded-lg transition-colors"
                   >
                     <MoreVertical size={16} />
