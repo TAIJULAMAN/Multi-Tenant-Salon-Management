@@ -116,7 +116,7 @@ export default function RecentActivity({ selectedSalon }: RecentActivityProps) {
               {/* Right Side: Date & Priority for larger screens */}
               <div className="hidden sm:flex flex-col items-end justify-between shrink-0">
                 <span
-                  className={`rounded-full px-3 py-0.5 text-[10px] font-bold ${priorityStyles[activity.priority]}`}
+                  className={`rounded-full px-2 py-1 text-xs font-semibold ${priorityStyles[activity.priority]}`}
                 >
                   {activity.priority}
                 </span>
