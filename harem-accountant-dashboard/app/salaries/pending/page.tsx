@@ -1,5 +1,5 @@
 import React from "react";
-import PageHeader from "@/components/common/PageHeader";
+import PageHeader from "@/components/customComponent/PageHeader";
 import PendingDeclinedTable from "@/components/salaries/pending/PendingDeclinedTable";
 
 export default function PendingDeclinedSalariesPage() {

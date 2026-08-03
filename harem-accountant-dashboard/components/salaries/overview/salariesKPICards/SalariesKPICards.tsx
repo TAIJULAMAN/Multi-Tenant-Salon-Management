@@ -44,41 +44,41 @@ export default function SalariesKPICards() {
         return (
           <div
             key={idx}
-            className={`relative flex flex-col justify-between overflow-hidden rounded-xl p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md}`}
+            className={`relative flex flex-col justify-between overflow-hidden rounded-2xl border p-6 shadow-[0_2px_10px_rgba(0,0,0,0.02)] transition-all duration-300 hover:-translate-y-1 hover:shadow-md ${card.bgClass}`}
             style={{
-              background: `linear-gradient(180deg, ${card.gradientColor}21 0%, ${card.gradientColor}08 100%)`,
+              background: `linear-gradient(180deg, ${card.gradientColor}15 0%, ${card.gradientColor}05 100%)`,
             }}
           >
             {/* Header: Icon + Title */}
             <div className="flex items-center gap-3.5">
               <div
-                className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl overflow-hidden shadow-sm ${card.iconBg}`}
+                className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl overflow-hidden shadow-sm"
+                style={{ backgroundColor: card.gradientColor }}
               >
                 <Image
                   src={card.iconSrc}
                   alt={card.iconAlt}
-                  width={44}
-                  height={44}
-                  className="h-full w-full object-contain"
+                  width={24}
+                  height={24}
                 />
               </div>
-              <span className="text-[13px] font-bold text-slate-700 tracking-tight leading-snug">
+              <span className="text-lg font-semibold text-slate-700 tracking-tight leading-snug">
                 {card.title}
               </span>
             </div>
 
             {/* Content: Value + Stats */}
             <div className="mt-8">
-              <h3 className="text-[38px] font-bold tracking-tight text-slate-800 leading-none">
+              <h3 className="text-2xl font-semibold tracking-tight text-slate-800 leading-none">
                 {displayValue}
               </h3>
 
-              <div className="mt-4 flex flex-col gap-0.5">
-                <span className="text-[12px] font-bold text-slate-800">
+              <div className="mt-4 flex flex-col gap-1">
+                <span className="text-xs font-semibold text-slate-700">
                   {displaySubtext}
                 </span>
                 {card.change && (
-                  <span className="text-[11px] font-semibold text-slate-400 mt-1">
+                  <span className="text-xs font-medium text-slate-500">
                     {card.change}
                   </span>
                 )}
