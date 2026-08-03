@@ -227,7 +227,6 @@ export default function ImportedListTable({ data, onDataChange }: Props) {
           itemsPerPage={itemsPerPage}
           totalItems={data.length}
           onPageChange={setCurrentPage}
-          onItemsPerPageChange={setItemsPerPage}
         />
       )}
     </div>

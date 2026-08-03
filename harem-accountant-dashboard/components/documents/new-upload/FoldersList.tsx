@@ -114,7 +114,6 @@ export default function FoldersList({
                           handleActionNotify("Manage Permission", folder.name)
                         }
                         onDelete={() => handleDeleteClick(folder.id, "folder")}
-                        alignLeft={true}
                       />
                     </div>
                   )}
