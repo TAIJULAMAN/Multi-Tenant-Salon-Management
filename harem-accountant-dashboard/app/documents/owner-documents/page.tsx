@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import PageHeader from "@/components/common/PageHeader";
+import PageHeader from "@/components/customComponent/PageHeader";
 import { AlertCircle, Compass } from "lucide-react";
 
 export default function OwnerDocumentsPage() {

@@ -1,27 +1,14 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from "react";
-import { Eye, Check, ChevronDown, Bell } from "lucide-react";
+import React, { useState } from "react";
+import { Eye, Check, Bell } from "lucide-react";
+import CustomSelect from "@/components/customComponent/CustomSelect";
 import { upcomingPaymentsDataByMonth } from "./data";
 
 export default function UpcomingPayments() {
   const [selectedMonth, setSelectedMonth] = useState("February");
-  const [isOpen, setIsOpen] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
 
   const months = ["January", "February", "March", "April", "May", "June"];
-
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setIsOpen(false);
-      }
-    }
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
 
   const activePayments = upcomingPaymentsDataByMonth[selectedMonth] || [];
 
@@ -30,31 +17,11 @@ export default function UpcomingPayments() {
       {/* Header */}
       <div className="flex items-center justify-between relative">
         <h3 className="text-sm font-bold text-slate-800 tracking-tight">Upcoming Payments</h3>
-        <div className="relative" ref={dropdownRef}>
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="flex items-center gap-1.5 border border-slate-200 bg-white text-slate-600 text-xs font-semibold px-3.5 py-2 rounded-lg transition-all hover:bg-slate-50 cursor-pointer"
-          >
-            <span>{selectedMonth}</span>
-            <ChevronDown size={14} className={`text-slate-400 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
-          </button>
-          {isOpen && (
-            <div className="absolute right-0 z-10 mt-1.5 w-32 bg-white rounded-xl shadow-xl ring-1 ring-slate-100 py-1.5 animate-in fade-in slide-in-from-top-2">
-              {months.map((m, idx) => (
-                <button
-                  key={idx}
-                  onClick={() => {
-                    setSelectedMonth(m);
-                    setIsOpen(false);
-                  }}
-                  className="w-full text-left px-4 py-2 text-xs text-slate-600 hover:bg-slate-50 font-bold transition-colors cursor-pointer"
-                >
-                  {m}
-                </button>
-              ))}
-            </div>
-          )}
-        </div>
+        <CustomSelect 
+          value={selectedMonth} 
+          onChange={setSelectedMonth} 
+          options={months} 
+        />
       </div>
 
       {/* List */}
