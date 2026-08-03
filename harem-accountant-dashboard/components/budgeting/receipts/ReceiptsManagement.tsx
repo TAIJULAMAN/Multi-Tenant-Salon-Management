@@ -1,46 +1,64 @@
-import React, { useState } from "react";
-import { Download } from "lucide-react";
+import React from "react";
 import ReceiptsKPICards from "./ReceiptsKPICards";
 import ReceiptsTable from "./ReceiptsTable";
 import ReceiptDetailView from "./ReceiptDetailView";
-import { ReceiptItem } from "./data";
+import ReceiptsFilters from "./ReceiptsFilters";
+import { useReceiptsManagement } from "./hooks/useReceiptsManagement";
+import CustomExportButton from "@/components/customComponent/CustomExportButton";
 
 export default function ReceiptsManagement() {
-  const [activeView, setActiveView] = useState<"list" | "detail">("list");
-  const [selectedReceipt, setSelectedReceipt] = useState<ReceiptItem | null>(
-    null,
-  );
+  const {
+    activeView,
+    selectedReceipt,
+    selectedDate,
+    setSelectedDate,
+    selectedEmployee,
+    setSelectedEmployee,
+    selectedService,
+    setSelectedService,
+    selectedMethod,
+    setSelectedMethod,
+    searchQuery,
+    setSearchQuery,
+    handleViewReceipt,
+    handleBackToList,
+    filteredReceipts,
+  } = useReceiptsManagement();
 
   if (activeView === "detail" && selectedReceipt) {
     return (
-      <ReceiptDetailView
-        receipt={selectedReceipt}
-        onBack={() => {
-          setActiveView("list");
-          setSelectedReceipt(null);
-        }}
-      />
+      <ReceiptDetailView receipt={selectedReceipt} onBack={handleBackToList} />
     );
   }
 
   return (
     <div className="space-y-6">
-      {/* Header section */}
-      <div className="bg-white p-5 sm:p-6 rounded-2xl border border-slate-100 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <h1 className="text-lg font-semibold text-slate-800 tracking-tight text-left">
-          Receipts
-        </h1>
-        <button className="flex items-center gap-2 bg-[#5c60f5] text-white text-xs font-semibold px-4 py-2.5 rounded-xl hover:bg-[#4c50e0] shadow-sm transition-colors cursor-pointer w-fit">
-          <Download size={14} />
-          <span>Export Receipts</span>
-        </button>
+      <div className="bg-white p-5 sm:p-6 rounded-2xl border border-slate-100 shadow-sm space-y-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <h1 className="text-lg font-semibold text-slate-800 tracking-tight text-left">
+            Receipts
+          </h1>
+          <CustomExportButton label="Export Receipts" />
+        </div>
+        <div className="border-t border-slate-50 pt-5">
+          <ReceiptsFilters
+            selectedDate={selectedDate}
+            setSelectedDate={setSelectedDate}
+            selectedEmployee={selectedEmployee}
+            setSelectedEmployee={setSelectedEmployee}
+            selectedService={selectedService}
+            setSelectedService={setSelectedService}
+            selectedMethod={selectedMethod}
+            setSelectedMethod={setSelectedMethod}
+            searchQuery={searchQuery}
+            setSearchQuery={setSearchQuery}
+          />
+        </div>
       </div>
       <ReceiptsKPICards />
       <ReceiptsTable
-        onViewReceipt={(receipt) => {
-          setSelectedReceipt(receipt);
-          setActiveView("detail");
-        }}
+        receipts={filteredReceipts}
+        onViewReceipt={handleViewReceipt}
       />
     </div>
   );
