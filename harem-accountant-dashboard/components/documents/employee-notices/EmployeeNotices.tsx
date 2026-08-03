@@ -3,9 +3,9 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { Plus, Eye } from "lucide-react";
-import Pagination from "@/components/common/Pagination";
+import Pagination from "@/components/customComponent/Pagination";
 import SendNoticeModal from "./SendNoticeModal";
-import SuccessModal from "./SuccessModal";
+import SuccessModal from "@/components/modal/SuccessModal";
 import NoticeDetailsModal from "./NoticeDetailsModal";
 import { mockNotices, EmployeeNotice } from "./data";
 import Image from "next/image";
@@ -30,7 +30,7 @@ export default function EmployeeNotices() {
     <div className="flex flex-col space-y-6">
       {/* Header */}
       <div className="bg-white rounded-xl shadow-sm ring-1 ring-slate-100 px-6 py-5 flex items-center justify-between">
-        <h1 className="text-lg font-semibold text-slate-800 tracking-tight">
+        <h1 className="text-xl font-semibold text-slate-800 tracking-tight">
           Employee Notices
         </h1>
         <div className="flex items-center gap-3">
@@ -129,17 +129,13 @@ export default function EmployeeNotices() {
             </tbody>
           </table>
         </div>
-
-        {/* Footer / Pagination */}
-        <div className="px-6 py-4 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-end">
-          <Pagination
-            currentPage={currentPage}
-            totalPages={totalPages}
-            itemsPerPage={itemsPerPage}
-            totalItems={mockNotices.length}
-            onPageChange={setCurrentPage}
-          />
-        </div>
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          itemsPerPage={itemsPerPage}
+          totalItems={mockNotices.length}
+          onPageChange={setCurrentPage}
+        />
       </div>
 
       {/* Modals */}
