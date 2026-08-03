@@ -1,5 +1,3 @@
-
-
 export interface SalariesMetrics {
   awaitingApproval: number;
   recentlyDeclined: number;
@@ -16,7 +14,9 @@ export const baseSalariesMetrics: SalariesMetrics = {
   avgTime: "2.3",
 };
 
-export const getScaledSalariesMetrics = (selectedSalon: string): SalariesMetrics => {
+export const getScaledSalariesMetrics = (
+  selectedSalon: string,
+): SalariesMetrics => {
   let factor = 1.0;
   switch (selectedSalon) {
     case "Glamour Beauty":
@@ -35,10 +35,15 @@ export const getScaledSalariesMetrics = (selectedSalon: string): SalariesMetrics
   }
 
   return {
-    awaitingApproval: Math.round(baseSalariesMetrics.awaitingApproval * factor) || 2,
-    recentlyDeclined: Math.round(baseSalariesMetrics.recentlyDeclined * factor) || 1,
-    processedThisMonth: Math.round(baseSalariesMetrics.processedThisMonth * factor),
-    processedCount: Math.round(baseSalariesMetrics.processedCount * factor) || 8,
+    awaitingApproval:
+      Math.round(baseSalariesMetrics.awaitingApproval * factor) || 2,
+    recentlyDeclined:
+      Math.round(baseSalariesMetrics.recentlyDeclined * factor) || 1,
+    processedThisMonth: Math.round(
+      baseSalariesMetrics.processedThisMonth * factor,
+    ),
+    processedCount:
+      Math.round(baseSalariesMetrics.processedCount * factor) || 8,
     avgTime: factor === 1.0 ? "2.3" : (2.3 + (factor - 0.5)).toFixed(1),
   };
 };
@@ -60,7 +65,7 @@ export const salariesKPICardsConfig: SalariesKPICardConfig[] = [
     title: "Awaiting Approval",
     subtext: "Avg. 3.5 days waiting",
     change: "+2 from last week",
-    iconSrc: "/SalariesOverviewCardsIcon/AwaitingApprovalIcon.png",
+    iconSrc: "/icons/AwaitingApproval.svg",
     iconAlt: "Awaiting Approval",
     bgClass: "border-[#F8C209]/20",
     iconBg: "bg-[#F8C209]/15",
@@ -71,7 +76,7 @@ export const salariesKPICardsConfig: SalariesKPICardConfig[] = [
     title: "Recently Declined",
     subtext: "Last 30 days",
     change: "-1 from last month",
-    iconSrc: "/SalariesOverviewCardsIcon/RecentlyDeclinedIcon.png",
+    iconSrc: "/icons/RecentlyDeclined.svg",
     iconAlt: "Recently Declined",
     bgClass: "border-[#FF6692]/20",
     iconBg: "bg-[#FF6692]/15",
@@ -82,7 +87,7 @@ export const salariesKPICardsConfig: SalariesKPICardConfig[] = [
     title: "Processed This Month",
     subtext: "salaries",
     change: "+€12,300 from last month",
-    iconSrc: "/SalariesOverviewCardsIcon/ProcessedThisMonthIcon.png",
+    iconSrc: "/icons/ProcessedThisMonth.svg",
     iconAlt: "Processed This Month",
     bgClass: "border-[#16CDC7]/20",
     iconBg: "bg-[#16CDC7]/15",
@@ -93,7 +98,7 @@ export const salariesKPICardsConfig: SalariesKPICardConfig[] = [
     title: "Avg Processing Time",
     subtext: "-0.5 days from last month",
     change: "Down from 2.8 days",
-    iconSrc: "/SalariesOverviewCardsIcon/AvgProcessingTimeIcon.png",
+    iconSrc: "/icons/AvgProcessingTime.svg",
     iconAlt: "Avg Processing Time",
     bgClass: "border-[#635BFF]/20",
     iconBg: "bg-[#635BFF]/15",
