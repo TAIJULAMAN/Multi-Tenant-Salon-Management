@@ -44,7 +44,7 @@ export default function SalonOverview() {
                 <div className="sm:hidden">
                   <span
                     className={`
-                      inline-block rounded-full px-2.5 py-0.5 text-[9px] font-bold text-center
+                      inline-block rounded-full px-2 py-1 text-xs font-semibold text-center
                       ${
                         isOverBudget
                           ? "bg-[#ffe8ec] text-[#ff4b72]"
