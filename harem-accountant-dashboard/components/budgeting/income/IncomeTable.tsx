@@ -2,11 +2,12 @@
 
 import React, { useState } from "react";
 import { Calculator, FileText, CreditCard } from "lucide-react";
-import Pagination from "@/components/common/Pagination";
+import Pagination from "@/components/customComponent/Pagination";
 import {
   initialCashierClosures,
   initialLatestReceipts,
   initialPayments,
+  CashierClosureRow,
 } from "./data";
 
 interface IncomeTableProps {
@@ -46,7 +47,7 @@ export default function IncomeTable({
     return true;
   });
 
-  const getPaginatedData = (data: any[]) => {
+  const getPaginatedData = <T,>(data: T[]) => {
     const start = (currentPage - 1) * pageSize;
     return data.slice(start, start + pageSize);
   };
