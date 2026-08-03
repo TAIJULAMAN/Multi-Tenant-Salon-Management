@@ -19,29 +19,26 @@ export default function SalaryUploadSteps({
       number: 1,
       title: "Upload PDF",
       description: "Upload pay slip files",
-      icon: "/NewSalaryUploadIcons/UploadPDFIcon.svg",
+      icon: "/icons/uploadPdf.svg",
     },
     {
       number: 2,
       title: "Extract & Review",
       description: "Auto-extract and verify data",
-      icon: "/NewSalaryUploadIcons/ExtractReviewIcon.svg",
+      icon: "/icons/ExtractReview.svg",
     },
     {
       number: 3,
       title: "Finalize",
       description: "Confirm and submit",
-      icon: "/NewSalaryUploadIcons/FinalizeIcon.png",
+      icon: "/icons/Finalize.svg",
     },
   ];
 
   const isClickable = (targetStep: number) => {
     if (!onChangeStep) return false;
-    // Step 1 is always clickable
     if (targetStep === 1) return true;
-    // Step 2 is clickable if we have extracted data or if we are on step 2 or later
     if (targetStep === 2) return hasData || step >= 2;
-    // Step 3 is clickable if we have extracted data and we are on step 2 or later
     if (targetStep === 3) return hasData && step >= 2;
     return false;
   };
@@ -80,20 +77,14 @@ export default function SalaryUploadSteps({
                   alt={s.title}
                   width={24}
                   height={24}
-                  className={
-                    active
-                      ? s.number === 3
-                        ? ""
-                        : "brightness-0 invert"
-                      : "brightness-0"
-                  }
+                  className={active ? "brightness-0 invert" : "brightness-0"}
                 />
               </div>
               <div className="text-left min-w-0">
                 <p
-                  className={`text-sm font-bold leading-tight truncate ${
+                  className={`text-base font-semibold leading-tight truncate ${
                     active
-                      ? "text-slate-800 font-extrabold"
+                      ? "text-slate-800"
                       : clickable
                         ? "text-slate-700 hover:text-brand"
                         : "text-slate-400"
@@ -101,7 +92,7 @@ export default function SalaryUploadSteps({
                 >
                   {s.title}
                 </p>
-                <p className="text-[10px] text-slate-400 font-medium mt-0.5 leading-none truncate">
+                <p className="text-xs text-slate-400 font-medium mt-0.5 leading-none truncate">
                   {s.description}
                 </p>
               </div>

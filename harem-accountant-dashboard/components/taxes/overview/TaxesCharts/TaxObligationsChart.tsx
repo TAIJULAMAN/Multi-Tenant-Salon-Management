@@ -10,11 +10,15 @@ import {
   Title,
   Tooltip,
   Filler,
+  ScriptableContext,
+  TooltipItem,
+  ChartOptions,
 } from "chart.js";
 import { Line } from "react-chartjs-2";
 import { taxObligationsDataByYear } from "./data";
-import YearSelect from "@/components/common/YearSelect";
-import ExportModal from "@/components/common/ExportModal";
+import YearSelect from "@/components/customComponent/YearSelect";
+import CustomExportButton from "@/components/customComponent/CustomExportButton";
+import ExportModal from "@/components/modal/ExportModal";
 
 ChartJS.register(
   CategoryScale,
@@ -23,14 +27,15 @@ ChartJS.register(
   LineElement,
   Title,
   Tooltip,
-  Filler
+  Filler,
 );
 
 export default function TaxObligationsChart() {
   const [selectedYear, setSelectedYear] = useState("2025");
   const [isExportModalOpen, setIsExportModalOpen] = useState(false);
 
-  const activeData = taxObligationsDataByYear[selectedYear] || taxObligationsDataByYear["2025"];
+  const activeData =
+    taxObligationsDataByYear[selectedYear] || taxObligationsDataByYear["2025"];
 
   const chartData = {
     labels: activeData.map((d) => d.month),
@@ -39,7 +44,7 @@ export default function TaxObligationsChart() {
         label: "Total",
         data: activeData.map((d) => d.total),
         borderColor: "#2DD4BF",
-        backgroundColor: (context: any) => {
+        backgroundColor: (context: ScriptableContext<"line">) => {
           const ctx = context.chart.ctx;
           const gradient = ctx.createLinearGradient(0, 0, 0, 300);
           gradient.addColorStop(0, "#2DD4BF26");
@@ -57,7 +62,7 @@ export default function TaxObligationsChart() {
     ],
   };
 
-  const options = {
+  const options: ChartOptions<"line"> = {
     responsive: true,
     maintainAspectRatio: false,
     interaction: {
@@ -80,7 +85,6 @@ export default function TaxObligationsChart() {
       y: {
         grid: {
           color: "#f1f5f9",
-          drawBorder: false,
         },
         border: {
           display: false,
@@ -89,9 +93,9 @@ export default function TaxObligationsChart() {
         ticks: {
           color: "#94a3b8",
           font: { size: 12, weight: 500 },
-          callback: function (value: any) {
-            if (value === 0) return "0";
-            return `${value / 1000}k`;
+          callback: function (value: string | number) {
+            if (value === 0 || value === "0") return "0";
+            return `${Number(value) / 1000}k`;
           },
         },
       },
@@ -107,11 +111,11 @@ export default function TaxObligationsChart() {
         boxPadding: 6,
         usePointStyle: true,
         callbacks: {
-          title: (context: any) => {
+          title: (context: TooltipItem<"line">[]) => {
             return `${context[0].label}, ${selectedYear}`;
           },
-          label: (context: any) => {
-            return `Total: €${(context.raw / 1000).toFixed(1)}k`;
+          label: (context: TooltipItem<"line">) => {
+            return `Total: €${(Number(context.raw) / 1000).toFixed(1)}k`;
           },
         },
       },
@@ -135,17 +139,16 @@ export default function TaxObligationsChart() {
               selectedYear={selectedYear}
               onYearChange={setSelectedYear}
             />
-            <button
+            <CustomExportButton
+              label="Export Data"
+              variant="outline"
               onClick={() => setIsExportModalOpen(true)}
-              className="rounded-lg border border-indigo-200 px-4 py-2 text-sm font-semibold text-indigo-500 transition-colors hover:bg-indigo-50 cursor-pointer"
-            >
-              Export Data
-            </button>
+            />
           </div>
         </div>
 
         <div className="h-[300px] w-full">
-          <Line data={chartData} options={options as any} />
+          <Line data={chartData} options={options} />
         </div>
       </div>
 
