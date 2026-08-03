@@ -1,43 +1,42 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from "react";
-import { Download, ChevronDown } from "lucide-react";
+import React, { useState } from "react";
+import { AlertTriangle } from "lucide-react";
 import BudgetingKPICards from "./BudgetingKPICards";
-import BudgetingWarning from "./BudgetingWarning";
 import UpcomingPayments from "./UpcomingPayments";
 import LatestTransactions from "./LatestTransactions";
-import {
-  TotalMonthlyExpensesChart,
-  DailySpendingTrendsChart,
-  SalonExpensesChart,
-  PaymentMethodsChart,
-  ExpensesMacroCategoriesChart,
-  ExpensesCategoriesChart,
-  ExpensesSupplierChart,
-} from "./BudgetingCharts";
+import CustomSelect from "@/components/customComponent/CustomSelect";
+import CustomAlert from "@/components/customComponent/CustomAlert";
+import CustomCloseButton from "@/components/customComponent/CustomCloseButton";
+import { useSalon } from "@/context/SalonContext";
+import { TotalMonthlyExpensesChart } from "./TotalMonthlyExpensesChart";
+import { DailySpendingTrendsChart } from "./DailySpendingTrendsChart";
+import { SalonExpensesChart } from "./SalonExpensesChart";
+import { PaymentMethodsChart } from "./PaymentMethodsChart";
+import { ExpensesMacroCategoriesChart } from "./ExpensesMacroCategoriesChart";
+import { ExpensesCategoriesChart } from "./ExpensesCategoriesChart";
+import { ExpensesSupplierChart } from "./ExpensesSupplierChart";
 
 export default function BudgetingOverview() {
-  const [isExportOpen, setIsExportOpen] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
+  const { selectedSalon } = useSalon();
+  const [dismissedSalon, setDismissedSalon] = useState<string | null>(null);
+  const isWarningVisible = dismissedSalon !== selectedSalon;
 
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target as Node)
-      ) {
-        setIsExportOpen(false);
-      }
+  const getWarningMessage = () => {
+    switch (selectedSalon) {
+      case "Style Studio":
+        return `Warning – At Salon "Style Studio" you are about to exceed 70% of your budget.`;
+      case "Chic Hair & Beauty":
+        return `Warning – At Salon "Chic Hair & Beauty" you have reached 92% of your monthly budget allocation.`;
+      case "Glamour Beauty":
+      case "All Salons":
+      default:
+        return `Warning – At Salon "Glamour Beauty" you are about to exceed 85% of your budget.`;
     }
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
+  };
 
   const handleExport = (format: string) => {
     alert(`Exporting budgeting overview as ${format.toUpperCase()}...`);
-    setIsExportOpen(false);
   };
 
   return (
@@ -45,42 +44,40 @@ export default function BudgetingOverview() {
       {/* Header Row */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between bg-white px-6 py-4.5 rounded-xl border border-slate-100 shadow-sm gap-4">
         <div>
-          <h1 className="text-lg font-black text-slate-800 tracking-tight">
+          <h1 className="text-xl font-semibold text-slate-800 tracking-tight">
             Overview
           </h1>
         </div>
 
-        {/* Export Button with Dropdown */}
-        <div className="relative w-full sm:w-auto" ref={dropdownRef}>
-          <button
-            onClick={() => setIsExportOpen(!isExportOpen)}
-            className="flex items-center justify-center w-full sm:w-auto gap-2 bg-brand hover:bg-brand-dark text-white text-xs font-semibold px-4 py-2.5 rounded-xl shadow-md shadow-brand/10 transition-all cursor-pointer"
-          >
-            <Download size={14} />
-            <span>Export Monthly Report</span>
-            <ChevronDown size={14} />
-          </button>
-
-          {isExportOpen && (
-            <div className="absolute right-0 z-30 mt-2 w-full sm:w-44 bg-white rounded-xl shadow-xl ring-1 ring-slate-100 py-1.5 animate-in fade-in slide-in-from-top-2">
-              <button
-                onClick={() => handleExport("pdf")}
-                className="w-full text-left px-5 py-2.5 text-xs text-slate-600 font-semibold transition-colors cursor-pointer"
-              >
-                PDF
-              </button>
-              <button
-                onClick={() => handleExport("csv")}
-                className="w-full text-left px-5 py-2.5 text-xs text-slate-600 font-semibold transition-colors cursor-pointer"
-              >
-                CSV
-              </button>
-            </div>
-          )}
+        {/* Export Dropdown */}
+        <div className="w-full sm:w-48">
+          <CustomSelect
+            value="Export Report"
+            options={["PDF", "CSV"]}
+            onChange={(val) => handleExport(val.toLowerCase())}
+          />
         </div>
       </div>
 
-      <BudgetingWarning />
+      {isWarningVisible && (
+        <div className="relative animate-in fade-in duration-200">
+          <CustomAlert
+            icon={AlertTriangle}
+            iconColor="#eab308"
+            bgColor="#fef9c3"
+            borderColor="#fde047"
+            textColor="#a16207"
+          >
+            <div className="flex items-center justify-between w-full">
+              <span>{getWarningMessage()}</span>
+            </div>
+          </CustomAlert>
+          <CustomCloseButton
+            onClick={() => setDismissedSalon(selectedSalon)}
+            className="absolute right-4 top-1/2 -translate-y-1/2 p-1 rounded-lg text-[#a16207] hover:bg-[#fde047]/50 transition-colors cursor-pointer"
+          />
+        </div>
+      )}
       <BudgetingKPICards />
       <div className="grid grid-cols-1 xl:grid-cols-12 gap-6">
         <div className="xl:col-span-6">
