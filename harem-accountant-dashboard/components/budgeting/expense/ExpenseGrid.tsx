@@ -11,7 +11,7 @@ import {
   Trash2,
 } from "lucide-react";
 import Image from "next/image";
-import Pagination from "@/components/common/Pagination";
+import Pagination from "@/components/customComponent/Pagination";
 import { ExpenseTransaction } from "./data";
 
 interface ExpenseGridProps {

@@ -6,7 +6,7 @@ import KPICards from "@/components/dashboard/kpiCards/KPICards";
 import RecentActivity from "@/components/dashboard/recentActivity/RecentActivity";
 import SalonOverview from "@/components/dashboard/salonOverview/SalonOverview";
 import Charts from "@/components/dashboard/charts/Charts";
-import DashboardHeader from "@/components/common/PageHeader";
+import DashboardHeader from "@/components/customComponent/PageHeader";
 
 export default function DashboardPage() {
   const { selectedSalon } = useSalon();

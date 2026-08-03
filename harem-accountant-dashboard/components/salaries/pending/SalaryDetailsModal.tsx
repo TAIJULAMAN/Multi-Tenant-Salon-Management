@@ -2,6 +2,7 @@ import React from "react";
 import Image from "next/image";
 import { X, AlertCircle } from "lucide-react";
 import { PendingSalaryRecord } from "./data";
+import CustomAlert from "@/components/customComponent/CustomAlert";
 
 interface SalaryDetailsModalProps {
   record: PendingSalaryRecord;
@@ -69,15 +70,19 @@ export default function SalaryDetailsModal({
       </div>
 
       {record.status === "Declined" && (
-        <div className="flex gap-3 bg-red-50 border border-red-300 rounded-xl p-4 mb-6 text-red-400">
-          <AlertCircle
-            size={18}
-            className="flex-shrink-0 mt-0.5 text-red-400"
-          />
-          <p className="text-[13px] font-medium">
-            Decline Reason — Incorrect gross amount calculation. Please verify
-            the overtime hours.
-          </p>
+        <div className="mb-6">
+          <CustomAlert
+            icon={AlertCircle}
+            iconColor="#f87171"
+            bgColor="#fef2f2"
+            borderColor="#fca5a5"
+            textColor="#f87171"
+          >
+            <p className="text-[13px] font-medium">
+              Decline Reason — Incorrect gross amount calculation. Please verify
+              the overtime hours.
+            </p>
+          </CustomAlert>
         </div>
       )}
 
