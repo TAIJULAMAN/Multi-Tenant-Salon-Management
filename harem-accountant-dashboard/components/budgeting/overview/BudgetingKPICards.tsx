@@ -1,7 +1,14 @@
 "use client";
 
 import React from "react";
-import { Wallet, TrendingUp, CreditCard, Euro, ArrowUpRight, ArrowDownRight } from "lucide-react";
+import {
+  Wallet,
+  TrendingUp,
+  CreditCard,
+  Euro,
+  ArrowUpRight,
+  ArrowDownRight,
+} from "lucide-react";
 import { kpiCardsData } from "./data";
 
 export default function BudgetingKPICards() {
@@ -57,21 +64,21 @@ export default function BudgetingKPICards() {
               >
                 {getIcon(card.colorType)}
               </div>
-              <span className="text-[13px] font-bold text-slate-700 tracking-tight leading-snug">
+              <span className="text-base font-semibold text-slate-700 tracking-tight leading-snug">
                 {card.title}
               </span>
             </div>
 
             {/* Content: Value + Stats */}
             <div className="mt-8">
-              <h3 className="text-[38px] font-bold tracking-tight text-slate-800 leading-none">
+              <h3 className="text-2xl font-semibold tracking-tight text-slate-800 leading-none">
                 {card.value}
               </h3>
 
               <div className="mt-4 flex flex-col gap-0.5">
                 {card.trendType !== "neutral" ? (
                   <>
-                    <span className="text-[12px] font-bold">
+                    <span className="text-xs font-semibold">
                       {isUp && (
                         <span className="flex items-center gap-0.5 text-kpi-teal-text">
                           <ArrowUpRight size={14} className="shrink-0" />
@@ -92,7 +99,7 @@ export default function BudgetingKPICards() {
                     )}
                   </>
                 ) : (
-                  <span className="text-[12px] font-bold text-slate-500 truncate block">
+                  <span className="text-xs font-semibold text-slate-500 truncate block">
                     {card.trend}
                   </span>
                 )}
