@@ -9,7 +9,7 @@ import {
   mockNotifications,
 } from "@/components/notifications/data";
 import NotificationCard from "@/components/notifications/NotificationCard";
-import PageHeader from "@/components/common/PageHeader";
+import PageHeader from "@/components/customComponent/PageHeader";
 
 export default function NotificationsPage() {
   const { selectedSalon } = useSalon();
