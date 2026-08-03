@@ -26,10 +26,10 @@ export default function SalonSelector({ onSelectSalon }: SalonSelectorProps) {
               />
             </div>
             <div className="min-w-0">
-              <p className="font-bold text-slate-700 text-sm sm:text-[15px] group-hover:text-brand transition-colors truncate">
+              <p className="font-semibold text-slate-700 text-lg group-hover:text-brand transition-colors truncate">
                 {salon.name}
               </p>
-              <p className="text-[10px] sm:text-xs text-slate-400 font-semibold mt-0.5">
+              <p className="text-xs text-slate-400 font-semibold mt-0.5">
                 Click to select
               </p>
             </div>
