@@ -306,7 +306,7 @@ export default function StaffScreen() {
             ))}
           </View>
 
-          <TouchableOpacity style={styles.seeAllLink}>
+          <TouchableOpacity style={styles.seeAllLink} onPress={() => router.push("/staff/scheduleShift" as any)}>
             <Text style={styles.seeAllLinkText}>See All</Text>
           </TouchableOpacity>
         </View>

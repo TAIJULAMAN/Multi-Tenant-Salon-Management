@@ -1,0 +1,40 @@
+{
+  "expo": {
+    "name": "Accountant",
+    "slug": "Accountant",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/app/appIcon.png",
+    "scheme": "accountant",
+    "userInterfaceStyle": "automatic",
+    "ios": {
+      "icon": "./assets/app/appIcon.png"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#E6F4FE",
+        "foregroundImage": "./assets/app/appIcon.png"
+      },
+      "predictiveBackGestureEnabled": false,
+      "package": "com.mohammadalasad.Accountant"
+    },
+    "web": {
+      "output": "static"
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#635BFF",
+          "image": "./assets/app/appIcon.png",
+          "imageWidth": 76
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true,
+      "reactCompiler": true
+    }
+  }
+}

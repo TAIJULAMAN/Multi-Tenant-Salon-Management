@@ -8,6 +8,8 @@ export default function StaffLayout() {
       <Stack.Screen name="salaries" />
       <Stack.Screen name="add" />
       <Stack.Screen name="details/[id]" />
+      <Stack.Screen name="scheduleShift/index" />
+      <Stack.Screen name="scheduleShift/add" />
     </Stack>
   );
 }
